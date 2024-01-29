@@ -1,4 +1,5 @@
-import { Box, Chip, Stack, Typography } from "@mui/material";
+import { Box, Chip, Typography } from "@mui/material";
+import DraggableStack from "../../components/DraggableStack";
 import Recipe from "../../model/recipe";
 
 type PropType = {
@@ -7,15 +8,15 @@ type PropType = {
 
 function RecipePreview({ recipe }: PropType) {
   return (
-    <Box sx={{ pt: 2, pb: 2, pl: 2 }}>
-      <Typography variant="h4" sx={{ pb: 1 }}>
+    <Box sx={{ p: 2 }}>
+      <Typography variant="h5" sx={{ pb: 1 }}>
         {recipe.title}
       </Typography>
-      <Stack direction="row" spacing={1}>
+      <DraggableStack>
         {recipe.ingredients.map((ingredient) => (
           <Chip key={ingredient} label={ingredient} />
         ))}
-      </Stack>
+      </DraggableStack>
     </Box>
   );
 }
