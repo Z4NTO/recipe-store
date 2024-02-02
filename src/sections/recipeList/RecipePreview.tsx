@@ -8,8 +8,8 @@ type PropType = {
 
 function RecipePreview({ recipe }: PropType) {
   return (
-    <Box sx={{ p: 2 }}>
-      <Typography variant="h5" sx={{ pb: 1 }}>
+    <Box sx={{ p: 3 }}>
+      <Typography variant="h5" sx={{ pb: 2 }}>
         {recipe.title}
       </Typography>
       <DraggableStack>

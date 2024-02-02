@@ -1,7 +1,7 @@
-import RecipeListPage from "./pages/recipeList";
+import RecipeDetailPage from "./pages/recipeDetail";
 
 function App() {
-  return <RecipeListPage />;
+  return <RecipeDetailPage />;
 }
 
 export default App;
