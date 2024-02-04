@@ -1,14 +1,15 @@
 import { Box, Divider } from "@mui/material";
 import RecipePreview from "../../sections/recipeList/RecipePreview";
+import Toolbar from "../../sections/recipeList/Toolbar";
 import testData from "../../testData";
 
 function RecipeListPage() {
-  const [firstRecipe, ...otherRecipes] = testData;
+  const recipes = testData;
 
   return (
     <Box>
-      <RecipePreview recipe={firstRecipe} />
-      {otherRecipes.map((recipe) => (
+      <Toolbar />
+      {recipes.map((recipe) => (
         <Box key={recipe.id}>
           <Divider />
           <RecipePreview recipe={recipe} />
