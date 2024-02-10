@@ -12,14 +12,17 @@ function RecipeListPage() {
   return (
     <Box>
       <Toolbar textFieldValue={searchText} setTextFieldValue={setSearchText} />
-      {recipes
-        .filter((recipe) => recipe.title.includes(searchText))
-        .map((recipe) => (
-          <Box key={recipe.id}>
-            <Divider />
-            <RecipePreview recipe={recipe} />
-          </Box>
-        ))}
+      <Divider />
+      <Box sx={{ height: "800px", overflowY: "auto" }}>
+        {recipes
+          .filter((recipe) => recipe.title.includes(searchText))
+          .map((recipe) => (
+            <Box key={recipe.id}>
+              <RecipePreview recipe={recipe} />
+              <Divider />
+            </Box>
+          ))}
+      </Box>
     </Box>
   );
 }
