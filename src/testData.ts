@@ -74,6 +74,51 @@ const testData: Recipe[] = [
       "diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd " +
       "gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
   },
+  {
+    id: "bc096f78-7c51-4732-bc4f-9afd1bc0bea3",
+    title: "Gnocci, Spargel - Polenta",
+    ingredients: [
+      "Gnocci",
+      "Grüner Spargel",
+      "Weißer Spargel",
+      "Olivenöl",
+      "Mozarella",
+    ],
+    notes:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
+      "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et " +
+      "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata " +
+      "sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing " +
+      "elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed " +
+      "diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd " +
+      "gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  },
+  {
+    id: "bc096f78-7c51-4732-bc4f-9afd1bc0bea3",
+    title: "Knoblauchbrot",
+    ingredients: ["Baguette", "Butter", "Knoblauch"],
+    notes:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
+      "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et " +
+      "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata " +
+      "sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing " +
+      "elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed " +
+      "diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd " +
+      "gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  },
+  {
+    id: "bc096f78-7c51-4732-bc4f-9afd1bc0bea3",
+    title: "Türkische Pizza",
+    ingredients: ["Mehl", "Hefe", "Tomaten", "Hackfleisch", "Ei"],
+    notes:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
+      "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et " +
+      "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata " +
+      "sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing " +
+      "elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed " +
+      "diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd " +
+      "gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  },
 ];
 
 export default testData;
