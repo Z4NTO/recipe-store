@@ -12,8 +12,7 @@ function RecipeListPage() {
   return (
     <Box>
       <Toolbar textFieldValue={searchText} setTextFieldValue={setSearchText} />
-      <Divider />
-      <Box sx={{ height: "800px", overflowY: "auto" }}>
+      <Box sx={{ pt: "90px" }}>
         {recipes
           .filter((recipe) => recipe.title.includes(searchText))
           .map((recipe) => (

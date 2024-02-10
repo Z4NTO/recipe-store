@@ -119,6 +119,19 @@ const testData: Recipe[] = [
       "diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd " +
       "gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
   },
+  {
+    id: "ec096f78-7c51-5735-bc4f-9afd1bc0bea3",
+    title: "Spaghetti Carbonara",
+    ingredients: ["Spaghetti", "Parmesan", "Eigelb", "Olivenöl", "Pancetta"],
+    notes:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
+      "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et " +
+      "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata " +
+      "sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing " +
+      "elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed " +
+      "diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd " +
+      "gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  },
 ];
 
 export default testData;

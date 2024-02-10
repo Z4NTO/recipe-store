@@ -11,7 +11,7 @@ function Layout() {
         overflowY: "auto",
       }}
     >
-      <Box sx={{ width: "100%", maxWidth: 1000, backgroundColor: "white" }}>
+      <Box sx={{ width: "100%", maxWidth: "1000px", backgroundColor: "white" }}>
         <Outlet />
       </Box>
     </Stack>
