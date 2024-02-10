@@ -34,7 +34,7 @@ function Toolbar({ textFieldValue, setTextFieldValue }: PropType) {
           value={textFieldValue}
           onChange={(e) => setTextFieldValue(e.target.value)}
           variant="outlined"
-          sx={{ pr: 3 }}
+          sx={{ mr: 3, backgroundColor: "white" }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -44,7 +44,7 @@ function Toolbar({ textFieldValue, setTextFieldValue }: PropType) {
           }}
         />
         <Button variant="contained" startIcon={<Tune />}>
-          Zutaten
+          Filter
         </Button>
       </Stack>
       <Divider />
