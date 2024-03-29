@@ -36,8 +36,8 @@ function RecipePreview({ recipe }: PropType) {
         {recipe.title}
       </Typography>
       <DraggableStack>
-        {recipe.tags.map((ingredient) => (
-          <Chip key={ingredient} label={ingredient} />
+        {recipe.tags.map((tag) => (
+          <Chip key={tag} label={tag} />
         ))}
       </DraggableStack>
     </Box>
