@@ -43,7 +43,7 @@ function DraggableStack({ children }: PropType) {
     <Stack
       ref={stackRef}
       direction="row"
-      spacing={1}
+      spacing={1.5}
       sx={{
         cursor: mouseDown ? "grabbing" : "grab",
         userSelect: mouseDown ? "none" : "auto",

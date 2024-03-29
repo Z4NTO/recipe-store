@@ -32,11 +32,11 @@ function RecipePreview({ recipe }: PropType) {
 
   return (
     <Box sx={{ p: 3 }} onMouseDown={navigateIfMouseNotDragged}>
-      <Typography variant="h5" sx={{ pb: 2 }}>
+      <Typography variant="h5" sx={{ pb: 3 }}>
         {recipe.title}
       </Typography>
       <DraggableStack>
-        {recipe.ingredients.map((ingredient) => (
+        {recipe.tags.map((ingredient) => (
           <Chip key={ingredient} label={ingredient} />
         ))}
       </DraggableStack>
