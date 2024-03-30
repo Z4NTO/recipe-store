@@ -1,5 +1,5 @@
 const routes = {
-  recipeList: "list",
+  recipeList: "/list",
   recipeDetail: (recipeId: string) => `/recipe/${recipeId}`,
 };
 

@@ -6,13 +6,13 @@ const testData: Recipe[] = [
     title: "Lasagne",
     tags: ["Hauptspeise", "Italienisch"],
     ingredients: [
-      { name: "Hackfleisch", amount: "100g" },
-      { name: "Dosentomaten", amount: "100g" },
-      { name: "Gouda", amount: "100g" },
-      { name: "Milch", amount: "100g" },
-      { name: "Mehl", amount: "100g" },
-      { name: "Karotten", amount: "100g" },
-      { name: "Zwiebeln", amount: "100g" },
+      { name: "Hackfleisch", amount: "500g" },
+      { name: "Dosentomaten", amount: "800g" },
+      { name: "Gouda", amount: "150g" },
+      { name: "Milch", amount: "400ml" },
+      { name: "Mehl", amount: "25g" },
+      { name: "Karotten", amount: "3" },
+      { name: "Zwiebeln", amount: "2" },
     ],
     notes:
       "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
