@@ -34,7 +34,9 @@ function RecipeDetailPage() {
         title="Notizen"
         icon={<DescriptionIcon fontSize="large" />}
       />
-      <Typography pt={5}>{recipe.notes}</Typography>
+      <Box pl={2} pr={2}>
+        <Typography pt={5}>{recipe.notes}</Typography>
+      </Box>
     </Box>
   );
 }

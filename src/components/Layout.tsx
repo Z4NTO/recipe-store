@@ -7,11 +7,18 @@ function Layout() {
       alignItems="center"
       sx={{
         backgroundColor: "whitesmoke",
-        height: "100vh",
+        minHeight: "100vh",
         overflowY: "auto",
       }}
     >
-      <Box sx={{ width: "100%", maxWidth: "1000px", backgroundColor: "white" }}>
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: "1000px",
+          backgroundColor: "white",
+          minHeight: "100vh",
+        }}
+      >
         <Outlet />
       </Box>
     </Stack>
