@@ -19,7 +19,9 @@ function Toolbar({ textFieldValue, setTextFieldValue }: PropType) {
     <Box
       sx={{
         position: "fixed",
-        backgroundColor: "rgba(255, 255, 255, 0.95)",
+        backgroundColor: "rgba(255, 255, 255, 0.6)",
+        "&::-webkit-backdrop-filter": "blur(5px)",
+        backdropFilter: "blur(5px)",
         width: "100%",
         maxWidth: "1000px",
       }}
@@ -34,6 +36,7 @@ function Toolbar({ textFieldValue, setTextFieldValue }: PropType) {
           value={textFieldValue}
           onChange={(e) => setTextFieldValue(e.target.value)}
           variant="outlined"
+          type="search"
           sx={{ mr: 3, backgroundColor: "white" }}
           InputProps={{
             startAdornment: (
