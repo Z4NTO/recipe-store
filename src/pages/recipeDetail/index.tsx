@@ -1,23 +1,28 @@
 import DescriptionIcon from "@mui/icons-material/Description";
 import EggIcon from "@mui/icons-material/Egg";
-import { Box, Stack, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { useParams } from "react-router-dom";
 import SectionDivider from "../../components/SectionDivider";
 import Titlebar from "../../sections/recipeDetail/Titlebar";
 import testData from "../../testData";
+import { useState } from "react";
+import Ingredients from "../../sections/recipeDetail/Ingredients";
+import Notes from "../../sections/recipeDetail/Notes";
 
 function RecipeDetailPage() {
   const { recipeId } = useParams();
   const theme = useTheme();
 
-  const recipe = testData.find((recipe) => recipe.id === recipeId);
-  if (!recipe) {
+  const initialRecipe = testData.find((recipe) => recipe.id === recipeId);
+  const [recipe, setRecipe] = useState(initialRecipe);
+
+  if (!initialRecipe || !recipe) {
     return;
   }
 
   return (
     <Box sx={{ p: 3 }}>
-      <Titlebar recipe={recipe} />
+      <Titlebar recipe={recipe} setRecipe={setRecipe} />
       <SectionDivider
         title="Zutaten"
         icon={
@@ -27,18 +32,7 @@ function RecipeDetailPage() {
           />
         }
       />
-      <Stack spacing={1} pt={5} pb={7}>
-        {recipe.ingredients.map((ingredient) => (
-          <Stack key={ingredient.name} direction={"row"} spacing={2}>
-            <Stack width={"30%"} alignItems={"flex-end"}>
-              {ingredient.amount && (
-                <Typography>{ingredient.amount}</Typography>
-              )}
-            </Stack>
-            <Typography fontWeight={500}>{ingredient.name}</Typography>
-          </Stack>
-        ))}
-      </Stack>
+      <Ingredients recipe={recipe} setRecipe={setRecipe} />
       <SectionDivider
         title="Notizen"
         icon={
@@ -48,9 +42,7 @@ function RecipeDetailPage() {
           />
         }
       />
-      <Box pl={2} pr={2}>
-        <Typography pt={5}>{recipe.notes}</Typography>
-      </Box>
+      <Notes recipe={recipe} setRecipe={setRecipe} />
     </Box>
   );
 }

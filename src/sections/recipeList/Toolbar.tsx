@@ -20,7 +20,7 @@ function Toolbar({ textFieldValue, setTextFieldValue }: PropType) {
       sx={{
         position: "fixed",
         backgroundColor: "rgba(255, 255, 255, 0.6)",
-        "&::-webkit-backdrop-filter": "blur(5px)",
+        "&::WebkitBackdropFilter": "blur(5px)",
         backdropFilter: "blur(5px)",
         width: "100%",
         maxWidth: "1000px",

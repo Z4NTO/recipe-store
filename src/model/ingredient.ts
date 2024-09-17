@@ -1,6 +1,6 @@
 type Ingredient = {
+  id: string;
   name: string;
-  amount?: string;
 };
 
 export default Ingredient;
