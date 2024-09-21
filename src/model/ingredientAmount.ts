@@ -2,7 +2,7 @@ import Ingredient from "./ingredient.ts";
 
 type IngredientAmount = {
   id: string;
-  ingredient: Ingredient;
+  ingredient: Ingredient | null;
   amount?: string;
 };
 
