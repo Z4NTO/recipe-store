@@ -32,9 +32,9 @@ function IngredientList({ recipe, setRecipe }: PropType) {
     setRecipe({ ...recipe, ingredients: updatedIngredients });
   }
 
-  function deleteIngredientAmount(deletedId: string) {
+  function deleteIngredientAmount(idToDelete: string) {
     const updatedIngredients = recipe.ingredients.filter(
-      (ingredient) => ingredient.id !== deletedId,
+      (ingredient) => ingredient.id !== idToDelete,
     );
     setRecipe({ ...recipe, ingredients: updatedIngredients });
   }

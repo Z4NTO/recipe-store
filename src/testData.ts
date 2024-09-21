@@ -5,7 +5,10 @@ const testData: Recipe[] = [
   {
     id: uuidv4(),
     title: "Türkische Pizza",
-    tags: ["Hauptspeise", "Türkisch"],
+    tags: [
+      { id: uuidv4(), name: "Hauptspeise" },
+      { id: uuidv4(), name: "Türkisch" },
+    ],
     ingredients: [
       { id: uuidv4(), ingredient: { id: "1", name: "Mehl" }, amount: "100g" },
       { id: uuidv4(), ingredient: { id: "2", name: "Hefe" }, amount: "100g" },
@@ -27,7 +30,10 @@ const testData: Recipe[] = [
   {
     id: uuidv4(),
     title: "Lasagne",
-    tags: ["Hauptspeise", "Italienisch"],
+    tags: [
+      { id: uuidv4(), name: "Hauptspeise" },
+      { id: uuidv4(), name: "Italienisch" },
+    ],
     ingredients: [
       {
         id: uuidv4(),
@@ -51,7 +57,19 @@ const testData: Recipe[] = [
   {
     id: uuidv4(),
     title: "Carbanossi Auflauf",
-    tags: ["Hauptspeise", "Ungarisch", "Schnell", "Lieblingsessen"],
+    tags: [
+      { id: uuidv4(), name: "Hauptspeise" },
+      { id: uuidv4(), name: "Ungarisch" },
+      { id: uuidv4(), name: "Schnell" },
+      { id: uuidv4(), name: "Lieblingsessen" },
+      { id: uuidv4(), name: "1234" },
+      { id: uuidv4(), name: "2345" },
+      { id: uuidv4(), name: "3456" },
+      { id: uuidv4(), name: "4657" },
+      { id: uuidv4(), name: "5678" },
+      { id: uuidv4(), name: "6789" },
+      { id: uuidv4(), name: "7890" },
+    ],
     ingredients: [
       {
         id: uuidv4(),
@@ -74,7 +92,10 @@ const testData: Recipe[] = [
   {
     id: uuidv4(),
     title: "Wiener Schnitzel mit Kartoffelsalat",
-    tags: ["Hauptspeise", "Deutsche Küche"],
+    tags: [
+      { id: uuidv4(), name: "Hauptspeise" },
+      { id: uuidv4(), name: "Deutsche Küche" },
+    ],
     ingredients: [
       {
         id: uuidv4(),
@@ -100,7 +121,10 @@ const testData: Recipe[] = [
   {
     id: uuidv4(),
     title: "Pizza Margerita",
-    tags: ["Hauptspeise", "Italienisch"],
+    tags: [
+      { id: uuidv4(), name: "Hauptspeise" },
+      { id: uuidv4(), name: "Italienisch" },
+    ],
     ingredients: [
       { id: uuidv4(), ingredient: { id: "2", name: "Mehl" }, amount: "100g" },
       { id: uuidv4(), ingredient: { id: "3", name: "Hefe" }, amount: "100g" },
@@ -126,7 +150,10 @@ const testData: Recipe[] = [
   {
     id: uuidv4(),
     title: "Gnocci, Spargel - Polenta",
-    tags: ["Hauptspeise", "Schnell"],
+    tags: [
+      { id: uuidv4(), name: "Hauptspeise" },
+      { id: uuidv4(), name: "Schnell" },
+    ],
     ingredients: [
       { id: uuidv4(), ingredient: { id: "1", name: "Gnocci" }, amount: "100g" },
       {
@@ -156,7 +183,10 @@ const testData: Recipe[] = [
   {
     id: uuidv4(),
     title: "Knoblauchbrot",
-    tags: ["Beilage", "Schnell"],
+    tags: [
+      { id: uuidv4(), name: "Beilage" },
+      { id: uuidv4(), name: "Schnell" },
+    ],
     ingredients: [
       {
         id: uuidv4(),
@@ -176,7 +206,11 @@ const testData: Recipe[] = [
   {
     id: uuidv4(),
     title: "Spaghetti Carbonara",
-    tags: ["Hauptspeise", "Italienisch", "Schnell"],
+    tags: [
+      { id: uuidv4(), name: "Hauptspeise" },
+      { id: uuidv4(), name: "Italienisch" },
+      { id: uuidv4(), name: "Schnell" },
+    ],
     ingredients: [
       {
         id: uuidv4(),

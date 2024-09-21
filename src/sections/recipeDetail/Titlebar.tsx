@@ -1,8 +1,9 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Chip, IconButton, Stack, TextField } from "@mui/material";
+import { IconButton, Stack, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Recipe from "../../model/recipe";
 import routes from "../../router/routes";
+import TagDisplay from "./TagDisplay.tsx";
 
 type PropType = {
   recipe: Recipe;
@@ -36,17 +37,7 @@ function Titlebar({ recipe, setRecipe }: PropType) {
           }}
         />
       </Stack>
-      <Stack
-        direction={"row"}
-        gap={1.5}
-        flexWrap={"wrap"}
-        justifyContent={"flex-start"}
-        sx={{ pb: 5 }}
-      >
-        {recipe.tags.map((tag) => (
-          <Chip key={tag} label={tag} />
-        ))}
-      </Stack>
+      <TagDisplay recipe={recipe} setRecipe={setRecipe} />
     </>
   );
 }
