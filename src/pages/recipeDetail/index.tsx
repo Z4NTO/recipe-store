@@ -6,7 +6,7 @@ import SectionDivider from "../../components/SectionDivider";
 import Titlebar from "../../sections/recipeDetail/Titlebar";
 import testData from "../../testData";
 import { useState } from "react";
-import Ingredients from "../../sections/recipeDetail/Ingredients";
+import IngredientList from "../../sections/recipeDetail/IngredientList.tsx";
 import Notes from "../../sections/recipeDetail/Notes";
 
 function RecipeDetailPage() {
@@ -32,7 +32,7 @@ function RecipeDetailPage() {
           />
         }
       />
-      <Ingredients recipe={recipe} setRecipe={setRecipe} />
+      <IngredientList recipe={recipe} setRecipe={setRecipe} />
       <SectionDivider
         title="Notizen"
         icon={

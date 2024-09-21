@@ -1,10 +1,10 @@
-import Ingredient from "./ingredient.ts";
+import IngredientAmount from "./ingredientAmount.ts";
 
 type Recipe = {
   id: string;
   title: string;
   tags: string[];
-  ingredients: { id: string; ingredient: Ingredient; amount?: string }[];
+  ingredients: IngredientAmount[];
   notes: string;
 };
 
