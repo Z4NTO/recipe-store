@@ -1,4 +1,5 @@
-import { Autocomplete, Stack, TextField } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Autocomplete, Box, IconButton, Stack, TextField } from "@mui/material";
 import testDataIngredients from "../../testData_ingredients.ts";
 import Ingredient from "../../model/ingredient.ts";
 import IngredientAmount from "../../model/ingredientAmount.ts";
@@ -7,10 +8,17 @@ import React from "react";
 type PropType = {
   ingredientAmount: IngredientAmount;
   setIngredientAmount: (newValue: IngredientAmount) => void;
+  deleteIngredientAmount: (id: string) => void;
 };
 
-function IngredientRow({ ingredientAmount, setIngredientAmount }: PropType) {
+function IngredientRow({
+  ingredientAmount,
+  setIngredientAmount,
+  deleteIngredientAmount,
+}: PropType) {
   const allIngredients = testDataIngredients;
+
+  const [isHovered, setIsHovered] = React.useState(false);
 
   function updateIngredient(ingredient: Ingredient) {
     setIngredientAmount({
@@ -45,11 +53,38 @@ function IngredientRow({ ingredientAmount, setIngredientAmount }: PropType) {
   }
 
   return (
-    <Stack key={ingredientAmount.id} direction={"row"} spacing={2}>
-      <Stack width={"30%"} alignItems={"flex-end"}>
+    <Box
+      sx={{
+        paddingLeft: "5%",
+      }}
+    >
+      <Stack
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        direction={"row"}
+        alignItems={"start"}
+        spacing={2}
+        sx={{
+          width: "90%",
+          backgroundColor: isHovered ? "whitesmoke" : "inherit",
+          borderRadius: 1,
+          padding: 0.5,
+          paddingRight: 2,
+        }}
+      >
+        <IconButton
+          aria-label="delete"
+          sx={{
+            visibility: isHovered ? "visible" : "hidden",
+          }}
+          onClick={() => deleteIngredientAmount(ingredientAmount.id)}
+        >
+          <DeleteIcon />
+        </IconButton>
         <TextField
           variant="standard"
           value={ingredientAmount.amount}
+          placeholder={isHovered ? "Menge" : ""}
           onChange={(event) => {
             setIngredientAmount({
               ...ingredientAmount,
@@ -57,10 +92,11 @@ function IngredientRow({ ingredientAmount, setIngredientAmount }: PropType) {
             });
           }}
           sx={{
-            width: "50%",
             "& .MuiInputBase-input": {
               textAlign: "end",
             },
+            width: "25%",
+            paddingTop: 0.5,
           }}
           InputProps={{
             sx: {
@@ -68,52 +104,53 @@ function IngredientRow({ ingredientAmount, setIngredientAmount }: PropType) {
             },
           }}
         />
+        <Autocomplete
+          freeSolo
+          selectOnFocus
+          sx={{
+            width: "75%",
+            paddingTop: 0.5,
+          }}
+          value={ingredientAmount.ingredient}
+          onChange={handleFreeSoloAutocompleteChange}
+          options={allIngredients}
+          filterOptions={(options, params) => {
+            const { inputValue } = params;
+            return options.filter((option) => option.name.includes(inputValue));
+          }}
+          getOptionLabel={(option) => {
+            const optionIsFreeSoloValue = typeof option === "string";
+            if (optionIsFreeSoloValue) {
+              return option;
+            } else {
+              return option.name;
+            }
+          }}
+          renderOption={(props, ingredient) => {
+            return (
+              <li key={ingredient.id} {...props}>
+                {ingredient.name}
+              </li>
+            );
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="standard"
+              placeholder={"Zutat"}
+              fullWidth
+              InputProps={{
+                ...params.InputProps,
+                sx: {
+                  fontWeight: 500,
+                  "&::before": { borderBottom: "none" },
+                },
+              }}
+            />
+          )}
+        />
       </Stack>
-      <Autocomplete
-        freeSolo
-        selectOnFocus
-        sx={{
-          width: "50%",
-        }}
-        value={ingredientAmount.ingredient}
-        onChange={handleFreeSoloAutocompleteChange}
-        options={allIngredients}
-        filterOptions={(options, params) => {
-          const { inputValue } = params;
-          return options.filter((option) => option.name.includes(inputValue));
-        }}
-        getOptionLabel={(option) => {
-          const optionIsFreeSoloValue = typeof option === "string";
-          if (optionIsFreeSoloValue) {
-            return option;
-          } else {
-            return option.name;
-          }
-        }}
-        renderOption={(props, ingredient) => {
-          return (
-            <li key={ingredient.id} {...props}>
-              {ingredient.name}
-            </li>
-          );
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="standard"
-            placeholder={"Zutat"}
-            fullWidth
-            InputProps={{
-              ...params.InputProps,
-              sx: {
-                fontWeight: 500,
-                "&::before": { borderBottom: "none" },
-              },
-            }}
-          />
-        )}
-      />
-    </Stack>
+    </Box>
   );
 }
 

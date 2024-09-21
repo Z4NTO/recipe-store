@@ -18,12 +18,21 @@ function IngredientList({ recipe, setRecipe }: PropType) {
     setRecipe({ ...recipe, ingredients: updatedIngredients });
   }
 
+  function deleteIngredientAmount(deletedId: string) {
+    const updatedIngredients = recipe.ingredients.filter(
+      (ingredient) => ingredient.id !== deletedId,
+    );
+    setRecipe({ ...recipe, ingredients: updatedIngredients });
+  }
+
   return (
-    <Stack spacing={1} pt={5} pb={7}>
+    <Stack spacing={-1} pt={5} pb={7}>
       {recipe.ingredients.map((ingredientAmount) => (
         <IngredientRow
+          key={ingredientAmount.id}
           ingredientAmount={ingredientAmount}
           setIngredientAmount={updateIngredientAmount}
+          deleteIngredientAmount={deleteIngredientAmount}
         />
       ))}
     </Stack>
