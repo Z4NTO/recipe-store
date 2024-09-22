@@ -1,5 +1,11 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Autocomplete, IconButton, Stack, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  createFilterOptions,
+  IconButton,
+  Stack,
+  TextField,
+} from "@mui/material";
 import Ingredient from "../../model/ingredient.ts";
 import IngredientAmount from "../../model/ingredientAmount.ts";
 import React from "react";
@@ -11,6 +17,8 @@ type PropType = {
   deleteIngredientAmount: (id: string) => void;
 };
 
+type AutocompleteOption = Ingredient & { label?: string };
+
 function IngredientRow({
   ingredientAmount,
   updateIngredientAmount,
@@ -20,7 +28,7 @@ function IngredientRow({
 
   const [isHovered, setIsHovered] = React.useState(false);
 
-  function updateIngredient(ingredient: Ingredient) {
+  function updateIngredient(ingredient: Ingredient | null) {
     updateIngredientAmount({
       ...ingredientAmount,
       ingredient: ingredient,
@@ -29,13 +37,11 @@ function IngredientRow({
 
   function handleFreeSoloAutocompleteChange(
     _event: React.SyntheticEvent<Element, Event>,
-    newValue: string | Ingredient | null,
+    newValue: string | AutocompleteOption | null,
   ) {
-    if (!newValue) {
-      return;
-    }
-
-    if (typeof newValue === "string") {
+    if (newValue === null) {
+      updateIngredient(null);
+    } else if (typeof newValue === "string") {
       const existingIngredient = allIngredients.find(
         (ingredient) => ingredient.name === newValue,
       );
@@ -48,7 +54,11 @@ function IngredientRow({
         });
       }
     } else {
-      updateIngredient(newValue);
+      updateIngredient({
+        id: newValue.id,
+        name: newValue.name,
+      });
+      setIsHovered(false); // Fixes issue with hover state not resetting when selecting dropdown option
     }
   }
 
@@ -100,17 +110,34 @@ function IngredientRow({
       />
       <Autocomplete
         freeSolo
+        clearOnBlur
         selectOnFocus
         sx={{
           width: "75%",
           paddingTop: 0.5,
         }}
-        value={ingredientAmount.ingredient}
+        value={ingredientAmount.ingredient as AutocompleteOption}
         onChange={handleFreeSoloAutocompleteChange}
-        options={allIngredients}
+        options={allIngredients as AutocompleteOption[]}
         filterOptions={(options, params) => {
-          const { inputValue } = params;
-          return options.filter((option) => option.name.includes(inputValue));
+          const filter = createFilterOptions({
+            stringify: (option: AutocompleteOption) => option.name,
+            trim: true,
+          });
+          const filteredOptions = filter(options, params);
+
+          const trimmedInputValue = params.inputValue.trim();
+          const suggestNewValueCreation =
+            trimmedInputValue !== "" && filteredOptions.length === 0;
+          if (suggestNewValueCreation) {
+            filteredOptions.push({
+              id: "new",
+              name: trimmedInputValue,
+              label: `"${trimmedInputValue}" erstellen`,
+            });
+          }
+
+          return filteredOptions;
         }}
         getOptionLabel={(option) => {
           const optionIsFreeSoloValue = typeof option === "string";
@@ -120,10 +147,10 @@ function IngredientRow({
             return option.name;
           }
         }}
-        renderOption={(props, ingredient) => {
+        renderOption={(props, option) => {
           return (
-            <li key={ingredient.id} {...props}>
-              {ingredient.name}
+            <li {...props} key={`${option.id} ${option.name}`}>
+              {option.label || option.name}
             </li>
           );
         }}

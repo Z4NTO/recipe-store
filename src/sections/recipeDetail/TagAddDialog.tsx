@@ -23,7 +23,7 @@ type PropType = {
 type AutocompleteOption = Tag & { label?: string };
 
 function TagAddDialog({ isOpen, closeDialog, addTag }: PropType) {
-  const [tag, setTag] = useState<AutocompleteOption | null>(null);
+  const [tag, setTag] = useState<Tag | null>(null);
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -70,7 +70,7 @@ function TagAddDialog({ isOpen, closeDialog, addTag }: PropType) {
           freeSolo
           clearOnBlur
           selectOnFocus
-          value={tag}
+          value={tag as AutocompleteOption}
           onChange={handleFreeSoloAutocompleteChange}
           options={allTags as AutocompleteOption[]}
           filterOptions={(options, params) => {
