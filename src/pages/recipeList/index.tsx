@@ -1,13 +1,13 @@
 import { Box, Divider } from "@mui/material";
 import RecipePreview from "../../sections/recipeList/RecipePreview";
 import Toolbar from "../../sections/recipeList/Toolbar";
-import testData from "../../testData";
+import testDataRecipes from "../../testData/recipes.ts";
 import { useState } from "react";
 
 function RecipeListPage() {
   const [searchText, setSearchText] = useState("");
 
-  const recipes = testData;
+  const recipes = testDataRecipes;
 
   return (
     <Box>

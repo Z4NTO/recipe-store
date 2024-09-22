@@ -4,7 +4,7 @@ import { Box, useTheme } from "@mui/material";
 import { useParams } from "react-router-dom";
 import SectionDivider from "../../components/SectionDivider";
 import Titlebar from "../../sections/recipeDetail/Titlebar";
-import testData from "../../testData";
+import testDataRecipes from "../../testData/recipes.ts";
 import { useState } from "react";
 import IngredientList from "../../sections/recipeDetail/IngredientList.tsx";
 import Notes from "../../sections/recipeDetail/Notes";
@@ -13,7 +13,9 @@ function RecipeDetailPage() {
   const { recipeId } = useParams();
   const theme = useTheme();
 
-  const initialRecipe = testData.find((recipe) => recipe.id === recipeId);
+  const initialRecipe = testDataRecipes.find(
+    (recipe) => recipe.id === recipeId,
+  );
   const [recipe, setRecipe] = useState(initialRecipe);
 
   if (!initialRecipe || !recipe) {

@@ -1,9 +1,9 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Autocomplete, IconButton, Stack, TextField } from "@mui/material";
-import testDataIngredients from "../../testData_ingredients.ts";
 import Ingredient from "../../model/ingredient.ts";
 import IngredientAmount from "../../model/ingredientAmount.ts";
 import React from "react";
+import testDataIngredients from "../../testData/ingredients.ts";
 
 type PropType = {
   ingredientAmount: IngredientAmount;
