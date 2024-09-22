@@ -8,6 +8,7 @@ import testDataRecipes from "../../testData/recipes.ts";
 import { useState } from "react";
 import IngredientList from "../../sections/recipeDetail/IngredientList.tsx";
 import Notes from "../../sections/recipeDetail/Notes";
+import EditRecipeToolbar from "../../sections/recipeDetail/EditRecipeToolbar.tsx";
 
 function RecipeDetailPage() {
   const { recipeId } = useParams();
@@ -23,29 +24,32 @@ function RecipeDetailPage() {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Titlebar recipe={recipe} setRecipe={setRecipe} />
-      <SectionDivider
-        title="Zutaten"
-        icon={
-          <EggIcon
-            fontSize="large"
-            sx={{ color: theme.palette.secondary.main }}
-          />
-        }
-      />
-      <IngredientList recipe={recipe} setRecipe={setRecipe} />
-      <SectionDivider
-        title="Notizen"
-        icon={
-          <DescriptionIcon
-            fontSize="large"
-            sx={{ color: theme.palette.secondary.main }}
-          />
-        }
-      />
-      <Notes recipe={recipe} setRecipe={setRecipe} />
-    </Box>
+    <>
+      <Box sx={{ p: 3, height: "100%" }}>
+        <Titlebar recipe={recipe} setRecipe={setRecipe} />
+        <SectionDivider
+          title="Zutaten"
+          icon={
+            <EggIcon
+              fontSize="large"
+              sx={{ color: theme.palette.secondary.main }}
+            />
+          }
+        />
+        <IngredientList recipe={recipe} setRecipe={setRecipe} />
+        <SectionDivider
+          title="Notizen"
+          icon={
+            <DescriptionIcon
+              fontSize="large"
+              sx={{ color: theme.palette.secondary.main }}
+            />
+          }
+        />
+        <Notes recipe={recipe} setRecipe={setRecipe} />
+      </Box>
+      <EditRecipeToolbar />
+    </>
   );
 }
 

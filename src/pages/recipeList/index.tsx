@@ -1,6 +1,6 @@
 import { Box, Divider } from "@mui/material";
 import RecipePreview from "../../sections/recipeList/RecipePreview";
-import Toolbar from "../../sections/recipeList/Toolbar";
+import SearchToolbar from "../../sections/recipeList/SearchToolbar.tsx";
 import testDataRecipes from "../../testData/recipes.ts";
 import { useState } from "react";
 
@@ -11,7 +11,10 @@ function RecipeListPage() {
 
   return (
     <Box>
-      <Toolbar textFieldValue={searchText} setTextFieldValue={setSearchText} />
+      <SearchToolbar
+        textFieldValue={searchText}
+        setTextFieldValue={setSearchText}
+      />
       <Box sx={{ pt: "90px" }}>
         {recipes
           .filter((recipe) => recipe.title.includes(searchText))

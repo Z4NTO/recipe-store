@@ -1,29 +1,21 @@
 import { Search, Tune } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Divider,
-  InputAdornment,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Button, InputAdornment, Stack, TextField } from "@mui/material";
 import React from "react";
+import Toolbar from "../../components/Toolbar.tsx";
 
 type PropType = {
   textFieldValue: string;
   setTextFieldValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function Toolbar({ textFieldValue, setTextFieldValue }: PropType) {
+function SearchToolbar({ textFieldValue, setTextFieldValue }: PropType) {
   return (
-    <Box
+    <Toolbar
+      toolbarPosition={"top"}
       sx={{
-        position: "fixed",
         backgroundColor: "rgba(255, 255, 255, 0.6)",
         "&::WebkitBackdropFilter": "blur(5px)",
         backdropFilter: "blur(5px)",
-        width: "100%",
-        maxWidth: "1000px",
       }}
     >
       <Stack
@@ -50,9 +42,8 @@ function Toolbar({ textFieldValue, setTextFieldValue }: PropType) {
           Filter
         </Button>
       </Stack>
-      <Divider />
-    </Box>
+    </Toolbar>
   );
 }
 
-export default Toolbar;
+export default SearchToolbar;
