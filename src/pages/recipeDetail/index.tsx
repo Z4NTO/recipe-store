@@ -48,6 +48,7 @@ function RecipeDetailPage() {
         />
         <Notes recipe={recipe} setRecipe={setRecipe} />
       </Box>
+      <EditRecipeToolbar spaceFiller />
       <EditRecipeToolbar />
     </>
   );

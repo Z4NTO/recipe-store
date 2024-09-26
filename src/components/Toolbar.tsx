@@ -2,13 +2,14 @@ import { Box, Divider } from "@mui/material";
 import { ReactNode } from "react";
 import { BoxProps } from "@mui/material/Box/Box";
 
-type PropType = BoxProps & {
+export type ToolbarPropType = BoxProps & {
   toolbarPosition: "top" | "bottom";
+  spaceFiller?: boolean;
   children: ReactNode;
 };
 
-function Toolbar(props: PropType) {
-  const { toolbarPosition, children, ...otherProps } = props;
+function Toolbar(props: ToolbarPropType) {
+  const { toolbarPosition, spaceFiller, children, ...otherProps } = props;
 
   const toolbarStyles =
     toolbarPosition === "bottom"
@@ -22,7 +23,8 @@ function Toolbar(props: PropType) {
     <Box
       {...otherProps}
       sx={{
-        position: "fixed",
+        position: spaceFiller ? "static" : "fixed",
+        visibility: spaceFiller ? "hidden" : "visible",
         width: "100%",
         maxWidth: "1000px",
         backgroundColor: "white",

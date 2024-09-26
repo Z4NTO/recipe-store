@@ -1,17 +1,22 @@
 import { Search, Tune } from "@mui/icons-material";
 import { Button, InputAdornment, Stack, TextField } from "@mui/material";
-import React from "react";
 import Toolbar from "../../components/Toolbar.tsx";
 
 type PropType = {
-  textFieldValue: string;
-  setTextFieldValue: React.Dispatch<React.SetStateAction<string>>;
+  spaceFiller?: boolean;
+  textFieldValue?: string;
+  setTextFieldValue?: (value: string) => void;
 };
 
-function SearchToolbar({ textFieldValue, setTextFieldValue }: PropType) {
+function SearchToolbar({
+  spaceFiller,
+  textFieldValue,
+  setTextFieldValue,
+}: PropType) {
   return (
     <Toolbar
       toolbarPosition={"top"}
+      spaceFiller={spaceFiller}
       sx={{
         backgroundColor: "rgba(255, 255, 255, 0.6)",
         "&::WebkitBackdropFilter": "blur(5px)",
@@ -26,7 +31,9 @@ function SearchToolbar({ textFieldValue, setTextFieldValue }: PropType) {
       >
         <TextField
           value={textFieldValue}
-          onChange={(e) => setTextFieldValue(e.target.value)}
+          onChange={
+            setTextFieldValue && ((e) => setTextFieldValue(e.target.value))
+          }
           variant="outlined"
           type="search"
           sx={{ mr: 3, backgroundColor: "white" }}

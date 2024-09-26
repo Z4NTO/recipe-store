@@ -15,7 +15,8 @@ function RecipeListPage() {
         textFieldValue={searchText}
         setTextFieldValue={setSearchText}
       />
-      <Box sx={{ pt: "90px" }}>
+      <SearchToolbar spaceFiller />
+      <Box>
         {recipes
           .filter((recipe) => recipe.title.includes(searchText))
           .map((recipe) => (

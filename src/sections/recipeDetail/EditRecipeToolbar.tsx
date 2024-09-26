@@ -1,10 +1,15 @@
 import { Button, Stack } from "@mui/material";
 import Toolbar from "../../components/Toolbar.tsx";
 
-function EditRecipeToolbar() {
+type PropType = {
+  spaceFiller?: boolean;
+};
+
+function EditRecipeToolbar({ spaceFiller }: PropType) {
   return (
     <Toolbar
       toolbarPosition="bottom"
+      spaceFiller={spaceFiller}
       sx={{
         backgroundColor: "rgba(255, 255, 255, 0.6)",
         "&::WebkitBackdropFilter": "blur(5px)",
