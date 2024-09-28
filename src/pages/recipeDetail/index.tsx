@@ -9,6 +9,7 @@ import { useState } from "react";
 import IngredientList from "../../sections/recipeDetail/IngredientList.tsx";
 import Notes from "../../sections/recipeDetail/Notes";
 import EditRecipeToolbar from "../../sections/recipeDetail/EditRecipeToolbar.tsx";
+import { objectDeepEquals } from "../../util/objects.ts";
 
 function RecipeDetailPage() {
   const { recipeId } = useParams();
@@ -18,6 +19,8 @@ function RecipeDetailPage() {
     (recipe) => recipe.id === recipeId,
   );
   const [recipe, setRecipe] = useState(initialRecipe);
+
+  const isDirty = !objectDeepEquals(initialRecipe, recipe);
 
   if (!initialRecipe || !recipe) {
     return;
@@ -48,8 +51,8 @@ function RecipeDetailPage() {
         />
         <Notes recipe={recipe} setRecipe={setRecipe} />
       </Box>
-      <EditRecipeToolbar spaceFiller />
-      <EditRecipeToolbar />
+      {isDirty && <EditRecipeToolbar spaceFiller />}
+      {isDirty && <EditRecipeToolbar />}
     </>
   );
 }

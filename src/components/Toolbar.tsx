@@ -4,7 +4,7 @@ import { BoxProps } from "@mui/material/Box/Box";
 
 export type ToolbarPropType = BoxProps & {
   toolbarPosition: "top" | "bottom";
-  spaceFiller?: boolean;
+  spaceFiller?: boolean; // set to true to render second toolbar that prevents content from disappear behind toolbar
   children: ReactNode;
 };
 
