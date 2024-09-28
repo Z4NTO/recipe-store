@@ -4,20 +4,34 @@ import { useNavigate } from "react-router-dom";
 import Recipe from "../../model/recipe";
 import routes from "../../router/routes";
 import TagDisplay from "./TagDisplay.tsx";
+import { useState } from "react";
+import DiscardChangesDialog from "./DiscardChangesDialog.tsx";
 
 type PropType = {
   recipe: Recipe;
   setRecipe: (recipe: Recipe) => void;
+  isDirty: boolean;
 };
 
-function Titlebar({ recipe, setRecipe }: PropType) {
+function Titlebar({ recipe, setRecipe, isDirty }: PropType) {
+  const [discardChangesDialogIsOpen, setDiscardChangesDialogIsOpen] =
+    useState(false);
+
   const navigate = useNavigate();
   const navigateToListPage = () => navigate(routes.recipeList);
+
+  function handleNavigateBack() {
+    if (isDirty) {
+      setDiscardChangesDialogIsOpen(true);
+    } else {
+      navigateToListPage();
+    }
+  }
 
   return (
     <>
       <Stack direction="row" alignItems="center" sx={{ pb: 2 }} spacing={1}>
-        <IconButton size="small" onClick={navigateToListPage}>
+        <IconButton size="small" onClick={handleNavigateBack}>
           <ArrowBackIcon fontSize="large" sx={{ color: "black" }} />
         </IconButton>
         <TextField
@@ -38,6 +52,11 @@ function Titlebar({ recipe, setRecipe }: PropType) {
         />
       </Stack>
       <TagDisplay recipe={recipe} setRecipe={setRecipe} />
+      <DiscardChangesDialog
+        isOpen={discardChangesDialogIsOpen}
+        handleSubmit={navigateToListPage}
+        handleCancel={() => setDiscardChangesDialogIsOpen(false)}
+      />
     </>
   );
 }

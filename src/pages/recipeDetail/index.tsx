@@ -32,7 +32,7 @@ function RecipeDetailPage() {
   return (
     <>
       <Box sx={{ p: 3, height: "100%" }}>
-        <Titlebar recipe={recipe} setRecipe={setRecipe} />
+        <Titlebar recipe={recipe} setRecipe={setRecipe} isDirty={isDirty} />
         <SectionDivider
           title="Zutaten"
           icon={
