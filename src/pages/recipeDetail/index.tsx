@@ -10,14 +10,17 @@ import IngredientList from "../../sections/recipeDetail/IngredientList.tsx";
 import Notes from "../../sections/recipeDetail/Notes";
 import EditRecipeToolbar from "../../sections/recipeDetail/EditRecipeToolbar.tsx";
 import { objectDeepEquals } from "../../util/objects.ts";
+import { NEW_RECIPE_ID } from "../../model/recipe.ts";
 
 function RecipeDetailPage() {
   const { recipeId } = useParams();
   const theme = useTheme();
 
-  const initialRecipe = testDataRecipes.find(
-    (recipe) => recipe.id === recipeId,
-  );
+  const initialRecipe =
+    recipeId === NEW_RECIPE_ID
+      ? { id: NEW_RECIPE_ID, title: "", tags: [], ingredients: [], notes: "" }
+      : testDataRecipes.find((recipe) => recipe.id === recipeId);
+
   const [recipe, setRecipe] = useState(initialRecipe);
 
   const isDirty = !objectDeepEquals(initialRecipe, recipe);

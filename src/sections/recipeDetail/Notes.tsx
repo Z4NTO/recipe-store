@@ -11,7 +11,7 @@ function Ingredients({ recipe, setRecipe }: PropType) {
     <Box pl={2} pr={2}>
       <TextField
         variant="standard"
-        placeholder={"Notizen"}
+        placeholder={"Notizen hier einfügen..."}
         multiline
         value={recipe.notes}
         onChange={(event) => {

@@ -22,7 +22,7 @@ function Titlebar({ recipe, setRecipe }: PropType) {
         </IconButton>
         <TextField
           variant="standard"
-          placeholder={"Rezept-Titel"}
+          placeholder={"Titel einfügen..."}
           value={recipe.title}
           onChange={(event) =>
             setRecipe({ ...recipe, title: event.target.value })
