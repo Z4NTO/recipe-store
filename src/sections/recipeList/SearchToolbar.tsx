@@ -37,13 +37,17 @@ function SearchToolbar({
           variant="outlined"
           type="search"
           placeholder={"Suche"}
-          sx={{ mr: 3, backgroundColor: "white" }}
+          sx={{ mr: 3 }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <Search />
               </InputAdornment>
             ),
+            sx: {
+              borderRadius: 7,
+              backgroundColor: "rgba(255, 255, 255, 0.6)",
+            },
           }}
         />
         <Button variant="contained" startIcon={<Tune />}>
