@@ -3,11 +3,29 @@ import RecipePreview from "../../sections/recipeList/RecipePreview";
 import SearchToolbar from "../../sections/recipeList/SearchToolbar.tsx";
 import testDataRecipes from "../../testData/recipes.ts";
 import { useState } from "react";
+import Recipe from "../../model/recipe.ts";
 
 function RecipeListPage() {
   const [searchText, setSearchText] = useState("");
 
   const recipes = testDataRecipes;
+
+  function recipeMatchesSearchTerm(recipe: Recipe) {
+    const searchTextLowerCase = searchText.toLowerCase();
+    return (
+      recipe.title.toLowerCase().includes(searchTextLowerCase) ||
+      recipe.tags.some((tag) =>
+        tag.name.toLowerCase().includes(searchTextLowerCase),
+      ) ||
+      recipe.ingredients.some(
+        (ingredientAmount) =>
+          ingredientAmount.ingredient &&
+          ingredientAmount.ingredient.name
+            .toLowerCase()
+            .includes(searchTextLowerCase),
+      )
+    );
+  }
 
   return (
     <Box>
@@ -18,7 +36,7 @@ function RecipeListPage() {
       <SearchToolbar spaceFiller />
       <Box>
         {recipes
-          .filter((recipe) => recipe.title.includes(searchText))
+          .filter((recipe) => recipeMatchesSearchTerm(recipe))
           .map((recipe) => (
             <Box key={recipe.id}>
               <RecipePreview recipe={recipe} />

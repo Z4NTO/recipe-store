@@ -36,6 +36,7 @@ function SearchToolbar({
           }
           variant="outlined"
           type="search"
+          placeholder={"Suche"}
           sx={{ mr: 3, backgroundColor: "white" }}
           InputProps={{
             startAdornment: (
