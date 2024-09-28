@@ -27,7 +27,7 @@ function SearchToolbar({
         direction="row"
         justifyContent="space-between"
         alignItems={"center"}
-        sx={{ p: 3, height: "90px" }}
+        sx={{ p: 3, pt: 2, pb: 2 }}
       >
         <TextField
           value={textFieldValue}
@@ -50,7 +50,7 @@ function SearchToolbar({
             },
           }}
         />
-        <Button variant="contained" startIcon={<Tune />}>
+        <Button variant="contained" color="secondary" startIcon={<Tune />}>
           Filter
         </Button>
       </Stack>

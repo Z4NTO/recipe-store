@@ -4,6 +4,7 @@ import SearchToolbar from "../../sections/recipeList/SearchToolbar.tsx";
 import testDataRecipes from "../../testData/recipes.ts";
 import { useState } from "react";
 import Recipe from "../../model/recipe.ts";
+import CreateNewRecipeButton from "../../sections/recipeList/CreateNewRecipeButton.tsx";
 
 function RecipeListPage() {
   const [searchText, setSearchText] = useState("");
@@ -44,6 +45,7 @@ function RecipeListPage() {
             </Box>
           ))}
       </Box>
+      <CreateNewRecipeButton />
     </Box>
   );
 }
