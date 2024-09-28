@@ -55,7 +55,12 @@ function RecipeDetailPage() {
         <Notes recipe={recipe} setRecipe={setRecipe} />
       </Box>
       {isDirty && <EditRecipeToolbar spaceFiller />}
-      {isDirty && <EditRecipeToolbar />}
+      {isDirty && (
+        <EditRecipeToolbar
+          initialRecipe={initialRecipe}
+          setRecipe={setRecipe}
+        />
+      )}
     </>
   );
 }
