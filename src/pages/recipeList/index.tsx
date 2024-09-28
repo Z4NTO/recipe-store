@@ -1,10 +1,11 @@
 import { Box, Divider } from "@mui/material";
 import RecipePreview from "../../sections/recipeList/RecipePreview";
 import SearchToolbar from "../../sections/recipeList/SearchToolbar.tsx";
-import testDataRecipes from "../../testData/recipes.ts";
 import { useState } from "react";
 import Recipe from "../../model/recipe.ts";
 import CreateNewRecipeButton from "../../sections/recipeList/CreateNewRecipeButton.tsx";
+import testDataRecipes from "../../testData/recipes.ts";
+import CreateNewRecipeHint from "../../sections/recipeList/CreateNewRecipeHint.tsx";
 
 function RecipeListPage() {
   const [searchText, setSearchText] = useState("");
@@ -35,6 +36,7 @@ function RecipeListPage() {
         setTextFieldValue={setSearchText}
       />
       <SearchToolbar spaceFiller />
+      {recipes.length === 0 && <CreateNewRecipeHint />}
       <Box>
         {recipes
           .filter((recipe) => recipeMatchesSearchTerm(recipe))

@@ -72,8 +72,8 @@ function IngredientRow({
       sx={{
         backgroundColor: isHovered ? "whitesmoke" : "inherit",
         borderRadius: 1,
-        padding: 0.5,
-        paddingRight: 2,
+        p: 0.5,
+        pr: 2,
       }}
     >
       <IconButton
@@ -100,7 +100,7 @@ function IngredientRow({
             textAlign: "end",
           },
           width: "25%",
-          paddingTop: 0.5,
+          pt: 0.5,
         }}
         InputProps={{
           sx: {
@@ -114,7 +114,7 @@ function IngredientRow({
         selectOnFocus
         sx={{
           width: "75%",
-          paddingTop: 0.5,
+          pt: 0.5,
         }}
         value={ingredientAmount.ingredient as AutocompleteOption}
         onChange={handleFreeSoloAutocompleteChange}

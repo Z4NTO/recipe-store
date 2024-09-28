@@ -28,8 +28,8 @@ function CreateNewRecipeButton() {
         onClick={navigateToCreatePage}
         sx={{
           pointerEvents: "all",
-          marginBottom: 3,
-          marginRight: 3,
+          mb: 3,
+          mr: 3,
         }}
       >
         <Add />
