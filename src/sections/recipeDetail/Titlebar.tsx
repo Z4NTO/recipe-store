@@ -1,5 +1,11 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { IconButton, Stack, TextField } from "@mui/material";
+import {
+  IconButton,
+  Stack,
+  TextField,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Recipe from "../../model/recipe";
 import routes from "../../router/routes";
@@ -19,6 +25,9 @@ function Titlebar({ recipe, setRecipe, isDirty }: PropType) {
 
   const navigate = useNavigate();
   const navigateToListPage = () => navigate(routes.recipeList);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   function handleNavigateBack() {
     if (isDirty) {
@@ -44,8 +53,8 @@ function Titlebar({ recipe, setRecipe, isDirty }: PropType) {
           fullWidth
           InputProps={{
             sx: {
-              fontSize: "3rem",
-              fontWeight: 300,
+              fontSize: isMobile ? "2rem" : "3rem",
+              fontWeight: isMobile ? 400 : 300,
               "&::before": { borderBottom: "none" },
             },
           }}
