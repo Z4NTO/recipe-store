@@ -6,12 +6,11 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import Recipe from "../../model/recipe";
-import routes from "../../router/routes";
 import TagDisplay from "./TagDisplay.tsx";
 import { useState } from "react";
 import DiscardChangesDialog from "./DiscardChangesDialog.tsx";
+import { useNavigateToRecipeList } from "../../router/navigateHooks.ts";
 
 type PropType = {
   recipe: Recipe;
@@ -23,8 +22,7 @@ function Titlebar({ recipe, setRecipe, isDirty }: PropType) {
   const [discardChangesDialogIsOpen, setDiscardChangesDialogIsOpen] =
     useState(false);
 
-  const navigate = useNavigate();
-  const navigateToListPage = () => navigate(routes.recipeList);
+  const navigateToRecipeList = useNavigateToRecipeList();
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -33,7 +31,7 @@ function Titlebar({ recipe, setRecipe, isDirty }: PropType) {
     if (isDirty) {
       setDiscardChangesDialogIsOpen(true);
     } else {
-      navigateToListPage();
+      navigateToRecipeList();
     }
   }
 
@@ -63,7 +61,7 @@ function Titlebar({ recipe, setRecipe, isDirty }: PropType) {
       <TagDisplay recipe={recipe} setRecipe={setRecipe} />
       <DiscardChangesDialog
         isOpen={discardChangesDialogIsOpen}
-        handleSubmit={navigateToListPage}
+        handleSubmit={navigateToRecipeList}
         handleCancel={() => setDiscardChangesDialogIsOpen(false)}
       />
     </>

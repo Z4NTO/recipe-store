@@ -11,9 +11,10 @@ import Notes from "../../sections/recipeDetail/Notes";
 import EditRecipeToolbar from "../../sections/recipeDetail/EditRecipeToolbar.tsx";
 import { objectDeepEquals } from "../../util/objects.ts";
 import { NEW_RECIPE_ID } from "../../model/recipe.ts";
+import paramNames from "../../router/paramNames.ts";
 
 function RecipeDetailPage() {
-  const { recipeId } = useParams();
+  const recipeId = useParams()[paramNames.recipeId];
   const theme = useTheme();
 
   const initialRecipe =

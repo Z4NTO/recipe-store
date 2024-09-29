@@ -1,15 +1,14 @@
 import { Box, Chip, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import DraggableStack from "../../components/DraggableStack";
 import Recipe from "../../model/recipe";
-import routes from "../../router/routes";
+import { useNavigateToRecipeDetail } from "../../router/navigateHooks.ts";
 
 type PropType = {
   recipe: Recipe;
 };
 
 function RecipePreview({ recipe }: PropType) {
-  const navigate = useNavigate();
+  const navigateToRecipeDetail = useNavigateToRecipeDetail();
 
   const navigateIfMouseNotDragged = (e: React.MouseEvent<HTMLDivElement>) => {
     const initialMousePositionX = e.clientX;
@@ -23,7 +22,7 @@ function RecipePreview({ recipe }: PropType) {
         Math.abs(initialMousePositionX - e.clientX) <= mouseMoveTolerance &&
         Math.abs(initialMousePositionY - e.clientY) <= mouseMoveTolerance
       ) {
-        navigate(routes.recipeDetail(recipe.id));
+        navigateToRecipeDetail(recipe.id);
       }
     };
 

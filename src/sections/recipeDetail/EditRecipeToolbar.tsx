@@ -1,8 +1,7 @@
 import { Button, Stack } from "@mui/material";
 import Toolbar from "../../components/Toolbar.tsx";
 import Recipe, { NEW_RECIPE_ID } from "../../model/recipe.ts";
-import routes from "../../router/routes.ts";
-import { useNavigate } from "react-router-dom";
+import { useNavigateToRecipeList } from "../../router/navigateHooks.ts";
 
 type PropType = {
   spaceFiller?: boolean;
@@ -15,7 +14,7 @@ function EditRecipeToolbar({
   setRecipe,
   spaceFiller,
 }: PropType) {
-  const navigate = useNavigate();
+  const navigateToRecipeList = useNavigateToRecipeList();
 
   function handleCancel() {
     if (!initialRecipe || !setRecipe) {
@@ -23,7 +22,7 @@ function EditRecipeToolbar({
     }
 
     if (initialRecipe.id === NEW_RECIPE_ID) {
-      navigate(routes.recipeList);
+      navigateToRecipeList();
     } else {
       setRecipe(initialRecipe);
     }
