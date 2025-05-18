@@ -2,13 +2,10 @@ import { Box, Stack, Typography } from "@mui/material";
 
 import CookbookCard from "../../sections/cookbookList/CookbookCard.tsx";
 import CreateNewButton from "../../sections/recipeList/CreateNewButton.tsx";
+import testDataCookbooks from "../../testData/cookbooks.ts";
 
 function CookbookListPage() {
-  const testDataCookbooks = [
-    "Kochbuch von Dorit",
-    "Kochbuch von Felix Maximilian Müller der Knüller",
-    "Kochbuch von Andreas",
-  ];
+  const cookbooks = testDataCookbooks;
   return (
     <>
       <Box sx={{ p: 3 }}>
@@ -23,12 +20,9 @@ function CookbookListPage() {
           alignItems={"center"}
           mt={10}
         >
-          {testDataCookbooks.map((cookbookContent) => {
+          {cookbooks.map((cookbook) => {
             return (
-              <CookbookCard
-                key={cookbookContent}
-                textContent={cookbookContent}
-              />
+              <CookbookCard key={cookbook.id} textContent={cookbook.name} />
             );
           })}
         </Stack>
