@@ -1,10 +1,11 @@
 import { Fab, Stack } from "@mui/material";
 import { Add } from "@mui/icons-material";
-import { useNavigateToCreateRecipe } from "../../router/navigateHooks.ts";
 
-function CreateNewRecipeButton() {
-  const navigateToCreatePage = useNavigateToCreateRecipe();
+type PropType = {
+  onClick: () => void;
+};
 
+function CreateNewButton({ onClick }: PropType) {
   return (
     <Stack
       sx={{
@@ -21,7 +22,7 @@ function CreateNewRecipeButton() {
       <Fab
         color="primary"
         aria-label="add"
-        onClick={navigateToCreatePage}
+        onClick={onClick}
         sx={{
           pointerEvents: "all",
           mb: 3,
@@ -34,4 +35,4 @@ function CreateNewRecipeButton() {
   );
 }
 
-export default CreateNewRecipeButton;
+export default CreateNewButton;
