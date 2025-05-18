@@ -21,12 +21,10 @@ function RecipeListPage() {
       recipe.tags.some((tag) =>
         tag.name.toLowerCase().includes(searchTextLowerCase),
       ) ||
-      recipe.ingredients.some(
-        (ingredientAmount) =>
-          ingredientAmount.ingredient &&
-          ingredientAmount.ingredient.name
-            .toLowerCase()
-            .includes(searchTextLowerCase),
+      recipe.ingredients.some((ingredientAmount) =>
+        ingredientAmount.ingredient?.name
+          .toLowerCase()
+          .includes(searchTextLowerCase),
       )
     );
   }
