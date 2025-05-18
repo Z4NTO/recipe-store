@@ -1,16 +1,19 @@
-import { Avatar, Paper, Typography } from "@mui/material";
+import { Avatar, Paper, Typography, useTheme } from "@mui/material";
 import { MenuBook } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import routes from "../../router/routes.ts";
+import Cookbook from "../../model/cookbook.ts";
 
 type PropType = {
-  textContent: string;
+  cookbook: Cookbook;
 };
 
-function CookbookCard({ textContent }: Readonly<PropType>) {
+function CookbookCard({ cookbook }: Readonly<PropType>) {
   const navigate = useNavigate();
+  const theme = useTheme();
   return (
     <Paper
+      key={cookbook.id}
       onClick={() => {
         navigate(routes.recipeList("123"));
       }}
@@ -27,11 +30,17 @@ function CookbookCard({ textContent }: Readonly<PropType>) {
         gap: 3,
       }}
     >
-      <Avatar sx={{ width: "60px", height: "60px" }}>
+      <Avatar
+        sx={{
+          width: "60px",
+          height: "60px",
+          backgroundColor: theme.palette.primary.light,
+        }}
+      >
         <MenuBook fontSize={"large"} />
       </Avatar>
       <Typography variant="h5" textAlign={"center"}>
-        {textContent}
+        {cookbook.name}
       </Typography>
     </Paper>
   );

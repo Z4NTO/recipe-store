@@ -21,9 +21,7 @@ function CookbookListPage() {
           mt={10}
         >
           {cookbooks.map((cookbook) => {
-            return (
-              <CookbookCard key={cookbook.id} textContent={cookbook.name} />
-            );
+            return <CookbookCard key={cookbook.id} cookbook={cookbook} />;
           })}
         </Stack>
       </Box>
