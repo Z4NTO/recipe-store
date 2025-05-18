@@ -7,7 +7,7 @@ type PropType = {
   textContent: string;
 };
 
-function CookbookCard({ textContent }: PropType) {
+function CookbookCard({ textContent }: Readonly<PropType>) {
   const navigate = useNavigate();
   return (
     <Paper

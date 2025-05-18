@@ -13,7 +13,7 @@ type PropType = {
   icon: ReactNode;
 };
 
-function SectionDivider({ title, icon }: PropType) {
+function SectionDivider({ title, icon }: Readonly<PropType>) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 

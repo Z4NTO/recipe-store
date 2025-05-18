@@ -3,7 +3,7 @@ import { ReactNode, useRef, useState } from "react";
 
 type PropType = { children: ReactNode };
 
-function DraggableStack({ children }: PropType) {
+function DraggableStack({ children }: Readonly<PropType>) {
   const [mouseDown, setMouseDown] = useState(false);
   const stackRef = useRef<HTMLDivElement>(null);
 

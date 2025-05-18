@@ -13,7 +13,7 @@ function EditRecipeToolbar({
   initialRecipe,
   setRecipe,
   spaceFiller,
-}: PropType) {
+}: Readonly<PropType>) {
   const navigateToRecipeList = useNavigateToRecipeList();
 
   function handleCancel() {

@@ -10,7 +10,7 @@ type PropType = {
   setRecipe: (recipe: Recipe) => void;
 };
 
-function TagDisplay({ recipe, setRecipe }: PropType) {
+function TagDisplay({ recipe, setRecipe }: Readonly<PropType>) {
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
   function openDialog() {

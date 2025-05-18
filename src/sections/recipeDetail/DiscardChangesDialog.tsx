@@ -17,7 +17,7 @@ function DiscardChangesDialog({
   isOpen,
   handleSubmit,
   handleCancel,
-}: PropType) {
+}: Readonly<PropType>) {
   return (
     <Dialog
       open={isOpen}

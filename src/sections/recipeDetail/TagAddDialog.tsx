@@ -22,7 +22,7 @@ type PropType = {
 
 type AutocompleteOption = Tag & { label?: string };
 
-function TagAddDialog({ isOpen, closeDialog, addTag }: PropType) {
+function TagAddDialog({ isOpen, closeDialog, addTag }: Readonly<PropType>) {
   const [tag, setTag] = useState<Tag | null>(null);
 
   const theme = useTheme();

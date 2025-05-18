@@ -10,7 +10,7 @@ type PropType = {
   setRecipe: (recipe: Recipe) => void;
 };
 
-function IngredientList({ recipe, setRecipe }: PropType) {
+function IngredientList({ recipe, setRecipe }: Readonly<PropType>) {
   function addNewIngredientAmount() {
     const newIngredient: IngredientAmount = {
       id: uuidv4(),

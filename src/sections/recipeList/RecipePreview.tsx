@@ -7,7 +7,7 @@ type PropType = {
   recipe: Recipe;
 };
 
-function RecipePreview({ recipe }: PropType) {
+function RecipePreview({ recipe }: Readonly<PropType>) {
   const navigateToRecipeDetail = useNavigateToRecipeDetail();
 
   const navigateIfMouseNotDragged = (e: React.MouseEvent<HTMLDivElement>) => {

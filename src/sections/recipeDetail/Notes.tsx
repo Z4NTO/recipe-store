@@ -6,7 +6,7 @@ type PropType = {
   setRecipe: (recipe: Recipe) => void;
 };
 
-function Ingredients({ recipe, setRecipe }: PropType) {
+function Ingredients({ recipe, setRecipe }: Readonly<PropType>) {
   return (
     <Box pl={2} pr={2}>
       <TextField

@@ -5,7 +5,7 @@ type PropType = {
   onClick: () => void;
 };
 
-function CreateNewButton({ onClick }: PropType) {
+function CreateNewButton({ onClick }: Readonly<PropType>) {
   return (
     <Stack
       sx={{

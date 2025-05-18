@@ -23,7 +23,7 @@ function IngredientRow({
   ingredientAmount,
   updateIngredientAmount,
   deleteIngredientAmount,
-}: PropType) {
+}: Readonly<PropType>) {
   const allIngredients = testDataIngredients;
 
   const [isHovered, setIsHovered] = React.useState(false);

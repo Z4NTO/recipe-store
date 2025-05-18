@@ -18,7 +18,7 @@ type PropType = {
   isDirty: boolean;
 };
 
-function Titlebar({ recipe, setRecipe, isDirty }: PropType) {
+function Titlebar({ recipe, setRecipe, isDirty }: Readonly<PropType>) {
   const [discardChangesDialogIsOpen, setDiscardChangesDialogIsOpen] =
     useState(false);
 

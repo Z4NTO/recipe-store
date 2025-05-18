@@ -12,7 +12,7 @@ function SearchToolbar({
   spaceFiller,
   textFieldValue,
   setTextFieldValue,
-}: PropType) {
+}: Readonly<PropType>) {
   return (
     <Toolbar
       toolbarPosition={"top"}
