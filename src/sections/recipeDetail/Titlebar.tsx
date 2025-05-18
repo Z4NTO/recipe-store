@@ -1,16 +1,10 @@
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import {
-  IconButton,
-  Stack,
-  TextField,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Stack, TextField, useMediaQuery, useTheme } from "@mui/material";
 import Recipe from "../../model/recipe";
 import TagDisplay from "./TagDisplay.tsx";
 import { useState } from "react";
 import DiscardChangesDialog from "./DiscardChangesDialog.tsx";
 import { useNavigateToRecipeList } from "../../router/navigateHooks.ts";
+import NavigateBackButton from "../../components/NavigateBackButton.tsx";
 
 type PropType = {
   recipe: Recipe;
@@ -38,9 +32,7 @@ function Titlebar({ recipe, setRecipe, isDirty }: Readonly<PropType>) {
   return (
     <>
       <Stack direction="row" alignItems="center" sx={{ pb: 2 }} spacing={1}>
-        <IconButton size="small" onClick={handleNavigateBack}>
-          <ArrowBackIcon fontSize="large" sx={{ color: "black" }} />
-        </IconButton>
+        <NavigateBackButton onClick={handleNavigateBack} />
         <TextField
           variant="standard"
           placeholder={"Titel einfügen..."}
