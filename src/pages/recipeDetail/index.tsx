@@ -1,6 +1,6 @@
 import DescriptionIcon from "@mui/icons-material/Description";
 import EggIcon from "@mui/icons-material/Egg";
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import SectionDivider from "../../components/SectionDivider";
 import Titlebar from "../../sections/recipeDetail/Titlebar";
@@ -15,7 +15,6 @@ import paramNames from "../../router/paramNames.ts";
 
 function RecipeDetailPage() {
   const recipeId = useParams()[paramNames.recipeId];
-  const theme = useTheme();
 
   const initialRecipe =
     recipeId === NEW_RECIPE_ID
@@ -36,22 +35,12 @@ function RecipeDetailPage() {
         <Titlebar recipe={recipe} setRecipe={setRecipe} isDirty={isDirty} />
         <SectionDivider
           title="Zutaten"
-          icon={
-            <EggIcon
-              fontSize="large"
-              sx={{ color: theme.palette.secondary.main }}
-            />
-          }
+          icon={<EggIcon fontSize="large" color="primary" />}
         />
         <IngredientList recipe={recipe} setRecipe={setRecipe} />
         <SectionDivider
           title="Notizen"
-          icon={
-            <DescriptionIcon
-              fontSize="large"
-              sx={{ color: theme.palette.secondary.main }}
-            />
-          }
+          icon={<DescriptionIcon fontSize="large" color="primary" />}
         />
         <Notes recipe={recipe} setRecipe={setRecipe} />
       </Box>
