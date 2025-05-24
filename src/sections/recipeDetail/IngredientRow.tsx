@@ -1,15 +1,9 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import {
-  Autocomplete,
-  createFilterOptions,
-  IconButton,
-  Stack,
-  TextField,
-} from "@mui/material";
-import Ingredient from "../../model/ingredient.ts";
+import { IconButton, Stack, TextField } from "@mui/material";
 import IngredientAmount from "../../model/ingredientAmount.ts";
 import React from "react";
-import testDataIngredients from "../../testData/ingredients.ts";
+import IngredientAutocomplete from "./IngredientAutocomplete.tsx";
+import Ingredient from "../../model/ingredient.ts";
 
 type PropType = {
   ingredientAmount: IngredientAmount;
@@ -17,49 +11,19 @@ type PropType = {
   deleteIngredientAmount: (id: string) => void;
 };
 
-type AutocompleteOption = Ingredient & { label?: string };
-
 function IngredientRow({
   ingredientAmount,
   updateIngredientAmount,
   deleteIngredientAmount,
 }: Readonly<PropType>) {
-  const allIngredients = testDataIngredients;
-
   const [isHovered, setIsHovered] = React.useState(false);
 
-  function updateIngredient(ingredient: Ingredient | null) {
+  function handleIngredientUpdate(ingredient: Ingredient | null) {
     updateIngredientAmount({
       ...ingredientAmount,
       ingredient: ingredient,
     });
-  }
-
-  function handleFreeSoloAutocompleteChange(
-    _event: React.SyntheticEvent<Element, Event>,
-    newValue: string | AutocompleteOption | null,
-  ) {
-    if (newValue === null) {
-      updateIngredient(null);
-    } else if (typeof newValue === "string") {
-      const existingIngredient = allIngredients.find(
-        (ingredient) => ingredient.name === newValue,
-      );
-      if (existingIngredient) {
-        updateIngredient(existingIngredient);
-      } else {
-        updateIngredient({
-          id: "new",
-          name: newValue,
-        });
-      }
-    } else {
-      updateIngredient({
-        id: newValue.id,
-        name: newValue.name,
-      });
-      setIsHovered(false); // Fixes issue with hover state not resetting when selecting dropdown option
-    }
+    setIsHovered(false); // Fixes issue with hover state not resetting when selecting dropdown option
   }
 
   return (
@@ -108,67 +72,9 @@ function IngredientRow({
           },
         }}
       />
-      <Autocomplete
-        freeSolo
-        clearOnBlur
-        selectOnFocus
-        sx={{
-          width: "75%",
-          pt: 0.5,
-        }}
-        value={ingredientAmount.ingredient as AutocompleteOption}
-        onChange={handleFreeSoloAutocompleteChange}
-        options={allIngredients as AutocompleteOption[]}
-        filterOptions={(options, params) => {
-          const filter = createFilterOptions({
-            stringify: (option: AutocompleteOption) => option.name,
-            trim: true,
-          });
-          const filteredOptions = filter(options, params);
-
-          const trimmedInputValue = params.inputValue.trim();
-          const suggestNewValueCreation =
-            trimmedInputValue !== "" && filteredOptions.length === 0;
-          if (suggestNewValueCreation) {
-            filteredOptions.push({
-              id: "new",
-              name: trimmedInputValue,
-              label: `"${trimmedInputValue}" erstellen`,
-            });
-          }
-
-          return filteredOptions;
-        }}
-        getOptionLabel={(option) => {
-          const optionIsFreeSoloValue = typeof option === "string";
-          if (optionIsFreeSoloValue) {
-            return option;
-          } else {
-            return option.name;
-          }
-        }}
-        renderOption={(props, option) => {
-          return (
-            <li {...props} key={`${option.id} ${option.name}`}>
-              {option.label || option.name}
-            </li>
-          );
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="standard"
-            placeholder={"Zutat"}
-            fullWidth
-            InputProps={{
-              ...params.InputProps,
-              sx: {
-                fontWeight: 500,
-                "&::before": { borderBottom: "none" },
-              },
-            }}
-          />
-        )}
+      <IngredientAutocomplete
+        ingredient={ingredientAmount.ingredient}
+        onUpdateIngredient={handleIngredientUpdate}
       />
     </Stack>
   );
