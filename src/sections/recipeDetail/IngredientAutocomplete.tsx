@@ -46,6 +46,7 @@ function IngredientAutocomplete({
     const filteredOptions = filter(options, params);
 
     const trimmedSearchValue = params.inputValue.trim();
+
     const suggestNewValueCreation =
       trimmedSearchValue !== "" && filteredOptions.length === 0;
     if (suggestNewValueCreation) {
@@ -71,14 +72,7 @@ function IngredientAutocomplete({
       onChange={handleAutocompleteChange}
       options={allIngredients as AutocompleteOption[]}
       filterOptions={filterOptionsAndMaybeAddCreateNewRecipeOption}
-      getOptionLabel={(option) => {
-        const optionIsFreeSoloValue = typeof option === "string";
-        if (optionIsFreeSoloValue) {
-          return option;
-        } else {
-          return option.name;
-        }
-      }}
+      getOptionLabel={(option) => option.name}
       renderOption={(props, option) => {
         return (
           <li {...props} key={`${option.id} ${option.name}`}>
