@@ -66,9 +66,11 @@ function IngredientRow({
           width: "25%",
           pt: 0.5,
         }}
-        InputProps={{
-          sx: {
-            "&::before": { borderBottom: "none" },
+        slotProps={{
+          input: {
+            sx: {
+              "&::before": { borderBottom: "none" },
+            },
           },
         }}
       />

@@ -44,15 +44,17 @@ function SearchToolbar({
             type="search"
             placeholder={"Suche"}
             sx={{ mr: 3 }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search />
-                </InputAdornment>
-              ),
-              sx: {
-                borderRadius: 7,
-                backgroundColor: "rgba(255, 255, 255, 0.6)",
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                ),
+                sx: {
+                  borderRadius: 7,
+                  backgroundColor: "rgba(255, 255, 255, 0.6)",
+                },
               },
             }}
           />

@@ -89,11 +89,13 @@ function IngredientAutocomplete({
           variant="standard"
           placeholder={"Zutat"}
           fullWidth
-          InputProps={{
-            ...params.InputProps,
-            sx: {
-              fontWeight: 500,
-              "&::before": { borderBottom: "none" },
+          slotProps={{
+            input: {
+              ...params.InputProps,
+              sx: {
+                fontWeight: 500,
+                "&::before": { borderBottom: "none" },
+              },
             },
           }}
         />

@@ -41,11 +41,13 @@ function Titlebar({ recipe, setRecipe, isDirty }: Readonly<PropType>) {
             setRecipe({ ...recipe, title: event.target.value })
           }
           fullWidth
-          InputProps={{
-            sx: {
-              fontSize: isMobile ? "2rem" : "3rem",
-              fontWeight: isMobile ? 400 : 300,
-              "&::before": { borderBottom: "none" },
+          slotProps={{
+            input: {
+              sx: {
+                fontSize: isMobile ? "2rem" : "3rem",
+                fontWeight: isMobile ? 400 : 300,
+                "&::before": { borderBottom: "none" },
+              },
             },
           }}
         />

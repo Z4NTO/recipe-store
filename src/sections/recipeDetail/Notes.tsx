@@ -6,7 +6,7 @@ type PropType = {
   setRecipe: (recipe: Recipe) => void;
 };
 
-function Ingredients({ recipe, setRecipe }: Readonly<PropType>) {
+function Notes({ recipe, setRecipe }: Readonly<PropType>) {
   return (
     <Box pl={2} pr={2}>
       <TextField
@@ -19,9 +19,11 @@ function Ingredients({ recipe, setRecipe }: Readonly<PropType>) {
         }}
         fullWidth
         sx={{ pt: 5 }}
-        InputProps={{
-          sx: {
-            "&::before": { borderBottom: "none" },
+        slotProps={{
+          input: {
+            sx: {
+              "&::before": { borderBottom: "none" },
+            },
           },
         }}
       />
@@ -29,4 +31,4 @@ function Ingredients({ recipe, setRecipe }: Readonly<PropType>) {
   );
 }
 
-export default Ingredients;
+export default Notes;
