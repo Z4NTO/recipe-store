@@ -6,7 +6,9 @@ import {
 } from "@mui/material";
 import Ingredient from "../../model/ingredient.ts";
 import React from "react";
-import testDataIngredients from "../../testData/ingredients.ts";
+import { useParams } from "react-router-dom";
+import paramNames from "../../router/paramNames.ts";
+import { useIngredientQuery } from "../../api/ingredient.ts";
 
 type PropType = {
   ingredient: Ingredient | null;
@@ -19,7 +21,8 @@ function IngredientAutocomplete({
   ingredient,
   onUpdateIngredient,
 }: Readonly<PropType>) {
-  const allIngredients = testDataIngredients;
+  const cookbookId = useParams()[paramNames.cookbookId];
+  const { data: allIngredients = [] } = useIngredientQuery(cookbookId ?? "");
 
   function handleAutocompleteChange(
     _event: React.SyntheticEvent<Element, Event>,
@@ -35,7 +38,7 @@ function IngredientAutocomplete({
     }
   }
 
-  function filterOptionsAndMaybeAddCreateNewRecipeOption(
+  function filterOptionsOrReturnCreateNewRecipeOptionIfEmpty(
     options: AutocompleteOption[],
     params: FilterOptionsState<AutocompleteOption>,
   ) {
@@ -71,7 +74,7 @@ function IngredientAutocomplete({
       value={ingredient as AutocompleteOption}
       onChange={handleAutocompleteChange}
       options={allIngredients as AutocompleteOption[]}
-      filterOptions={filterOptionsAndMaybeAddCreateNewRecipeOption}
+      filterOptions={filterOptionsOrReturnCreateNewRecipeOptionIfEmpty}
       getOptionLabel={(option) => option.name}
       renderOption={(props, option) => {
         return (
