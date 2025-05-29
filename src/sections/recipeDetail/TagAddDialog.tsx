@@ -1,18 +1,18 @@
 import {
-  Autocomplete,
   Button,
-  createFilterOptions,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import Tag from "../../model/tag.ts";
-import testDataTags from "../../testData/tags.ts";
+import RecipeStoreAutocomplete from "../../components/RecipeStoreAutocomplete.tsx";
+import { useParams } from "react-router-dom";
+import paramNames from "../../router/paramNames.ts";
+import { useTagQuery } from "../../api/tag.ts";
 
 type PropType = {
   isOpen: boolean;
@@ -20,39 +20,14 @@ type PropType = {
   addTag: (newTag: Tag) => void;
 };
 
-type AutocompleteOption = Tag & { label?: string };
-
 function TagAddDialog({ isOpen, closeDialog, addTag }: Readonly<PropType>) {
   const [tag, setTag] = useState<Tag | null>(null);
 
+  const cookbookId = useParams()[paramNames.cookbookId];
+  const { data: tags = [] } = useTagQuery(cookbookId ?? "");
+
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-
-  const allTags = testDataTags;
-
-  function handleFreeSoloAutocompleteChange(
-    _event: React.SyntheticEvent<Element, Event>,
-    newValue: string | AutocompleteOption | null,
-  ) {
-    if (newValue === null) {
-      setTag(null);
-    } else if (typeof newValue === "string") {
-      const existingIngredient = allTags.find((tag) => tag.name === newValue);
-      if (existingIngredient) {
-        setTag(existingIngredient);
-      } else {
-        setTag({
-          id: "new",
-          name: newValue,
-        });
-      }
-    } else {
-      setTag({
-        id: newValue.id,
-        name: newValue.name,
-      });
-    }
-  }
 
   return (
     <Dialog
@@ -66,54 +41,11 @@ function TagAddDialog({ isOpen, closeDialog, addTag }: Readonly<PropType>) {
         {"Neuen Tag hinzufügen"}
       </DialogTitle>
       <DialogContent>
-        <Autocomplete
-          freeSolo
-          clearOnBlur
-          selectOnFocus
-          value={tag as AutocompleteOption}
-          onChange={handleFreeSoloAutocompleteChange}
-          options={allTags as AutocompleteOption[]}
-          filterOptions={(options, params) => {
-            const filter = createFilterOptions({
-              stringify: (option: AutocompleteOption) => option.name,
-              trim: true,
-            });
-            const filteredOptions = filter(options, params);
-
-            const trimmedInputValue = params.inputValue.trim();
-            const suggestNewValueCreation =
-              trimmedInputValue !== "" && filteredOptions.length === 0;
-            if (suggestNewValueCreation) {
-              filteredOptions.push({
-                id: "new",
-                name: trimmedInputValue,
-                label: `"${trimmedInputValue}" erstellen`,
-              });
-            }
-
-            return filteredOptions;
-          }}
-          getOptionLabel={(option) => {
-            if (typeof option === "string") {
-              return option;
-            } else {
-              return option.name;
-            }
-          }}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={`${option.id} ${option.name}`}>
-                {option.label || option.name}
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              placeholder={"Tag auswählen"}
-            />
-          )}
+        <RecipeStoreAutocomplete
+          value={tag}
+          onValueUpdate={setTag}
+          options={tags}
+          textFieldProps={{ placeholder: "Tag auswählen" }}
         />
       </DialogContent>
       <DialogActions>

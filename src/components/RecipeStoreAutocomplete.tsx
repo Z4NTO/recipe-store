@@ -4,41 +4,46 @@ import {
   FilterOptionsState,
   TextField,
 } from "@mui/material";
-import Ingredient from "../../model/ingredient.ts";
 import React from "react";
-import { useParams } from "react-router-dom";
-import paramNames from "../../router/paramNames.ts";
-import { useIngredientQuery } from "../../api/ingredient.ts";
 
 type PropType = {
-  ingredient: Ingredient | null;
-  onUpdateIngredient: (newValue: Ingredient | null) => void;
+  value: AutocompleteOption | null;
+  onValueUpdate: (newValue: AutocompleteOption | null) => void;
+  options: AutocompleteOption[];
+  autocompleteProps?: object;
+  textFieldProps?: object;
+  inputProps?: object;
 };
 
-type AutocompleteOption = Ingredient & { label?: string };
+type AutocompleteOption = {
+  id: string; // TODO: change to number
+  name: string;
+  label?: string;
+};
 
-function IngredientAutocomplete({
-  ingredient,
-  onUpdateIngredient,
+function RecipeStoreAutocomplete({
+  value,
+  onValueUpdate,
+  options,
+  autocompleteProps,
+  textFieldProps,
+  inputProps,
 }: Readonly<PropType>) {
-  const cookbookId = useParams()[paramNames.cookbookId];
-  const { data: allIngredients = [] } = useIngredientQuery(cookbookId ?? "");
-
   function handleAutocompleteChange(
     _event: React.SyntheticEvent<Element, Event>,
     newValue: AutocompleteOption | null,
   ) {
     if (newValue === null) {
-      onUpdateIngredient(null);
+      onValueUpdate(null);
     } else {
-      onUpdateIngredient({
+      onValueUpdate({
         id: newValue.id,
         name: newValue.name,
       });
     }
   }
 
-  function filterOptionsOrReturnCreateNewRecipeOptionIfEmpty(
+  function filterOptionsOrSuggestNewOptionCreation(
     options: AutocompleteOption[],
     params: FilterOptionsState<AutocompleteOption>,
   ) {
@@ -67,15 +72,12 @@ function IngredientAutocomplete({
     <Autocomplete
       clearOnBlur
       selectOnFocus
-      sx={{
-        width: "75%",
-        pt: 0.5,
-      }}
-      value={ingredient as AutocompleteOption}
+      value={value}
       onChange={handleAutocompleteChange}
-      options={allIngredients as AutocompleteOption[]}
-      filterOptions={filterOptionsOrReturnCreateNewRecipeOptionIfEmpty}
+      options={options}
+      filterOptions={filterOptionsOrSuggestNewOptionCreation}
       getOptionLabel={(option) => option.name}
+      noOptionsText={"Keine Optionen verfügbar"}
       renderOption={(props, option) => {
         return (
           <li {...props} key={`${option.id} ${option.name}`}>
@@ -87,21 +89,19 @@ function IngredientAutocomplete({
         <TextField
           {...params}
           variant="standard"
-          placeholder={"Zutat"}
           fullWidth
           slotProps={{
             input: {
               ...params.InputProps,
-              sx: {
-                fontWeight: 500,
-                "&::before": { borderBottom: "none" },
-              },
+              ...inputProps,
             },
           }}
+          {...textFieldProps}
         />
       )}
+      {...autocompleteProps}
     />
   );
 }
 
-export default IngredientAutocomplete;
+export default RecipeStoreAutocomplete;

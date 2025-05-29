@@ -2,8 +2,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton, Stack, TextField } from "@mui/material";
 import IngredientAmount from "../../model/ingredientAmount.ts";
 import React from "react";
-import IngredientAutocomplete from "./IngredientAutocomplete.tsx";
+import RecipeStoreAutocomplete from "../../components/RecipeStoreAutocomplete.tsx";
 import Ingredient from "../../model/ingredient.ts";
+import { useParams } from "react-router-dom";
+import paramNames from "../../router/paramNames.ts";
+import { useIngredientQuery } from "../../api/ingredient.ts";
 
 type PropType = {
   ingredientAmount: IngredientAmount;
@@ -17,6 +20,8 @@ function IngredientRow({
   deleteIngredientAmount,
 }: Readonly<PropType>) {
   const [isHovered, setIsHovered] = React.useState(false);
+  const cookbookId = useParams()[paramNames.cookbookId];
+  const { data: ingredients = [] } = useIngredientQuery(cookbookId ?? "");
 
   function handleIngredientUpdate(ingredient: Ingredient | null) {
     updateIngredientAmount({
@@ -74,9 +79,20 @@ function IngredientRow({
           },
         }}
       />
-      <IngredientAutocomplete
-        ingredient={ingredientAmount.ingredient}
-        onUpdateIngredient={handleIngredientUpdate}
+      <RecipeStoreAutocomplete
+        value={ingredientAmount.ingredient}
+        onValueUpdate={handleIngredientUpdate}
+        options={ingredients}
+        autocompleteProps={{
+          sx: {
+            width: "75%",
+            pt: 0.5,
+          },
+        }}
+        textFieldProps={{ placeholder: "Zutat" }}
+        inputProps={{
+          sx: { fontWeight: 500, "&::before": { borderBottom: "none" } },
+        }}
       />
     </Stack>
   );
