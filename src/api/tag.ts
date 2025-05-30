@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import Tag from "../model/tag.ts";
+import { Tag } from "../model/tag.ts";
 
 export function useTagQuery(cookbookId: string) {
   return useQuery<Tag[], Error>({
