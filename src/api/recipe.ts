@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import Recipe from "../model/recipe.ts";
+import { Recipe } from "../model/recipe.ts";
 
 export function useRecipeQuery(cookbookId: string) {
   return useQuery<Recipe[], Error>({

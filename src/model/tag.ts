@@ -1,6 +1,7 @@
-type Tag = {
-  id: string;
+export type Tag = {
+  id: number;
   name: string;
+  cookbookId: number;
 };
 
-export default Tag;
+export type NewTag = Omit<Tag, "id">;

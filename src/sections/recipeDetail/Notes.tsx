@@ -1,21 +1,17 @@
 import { Box, TextField } from "@mui/material";
-import Recipe from "../../model/recipe";
+import { useRecipeDetailContext } from "../../pages/recipeDetail/recipeDetailContext.ts";
 
-type PropType = {
-  recipe: Recipe;
-  setRecipe: (recipe: Recipe) => void;
-};
-
-function Notes({ recipe, setRecipe }: Readonly<PropType>) {
+function Notes() {
+  const { currentRecipe, setCurrentRecipe } = useRecipeDetailContext();
   return (
     <Box pl={2} pr={2}>
       <TextField
         variant="standard"
         placeholder={"Notizen hier einfügen..."}
         multiline
-        value={recipe.notes}
+        value={currentRecipe.notes}
         onChange={(event) => {
-          setRecipe({ ...recipe, notes: event.target.value });
+          setCurrentRecipe({ ...currentRecipe, notes: event.target.value });
         }}
         fullWidth
         sx={{ pt: 5 }}

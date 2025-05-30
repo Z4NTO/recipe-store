@@ -1,9 +1,13 @@
-import Ingredient from "./ingredient.ts";
+import { Ingredient, NewIngredient } from "./ingredient.ts";
 
-type IngredientAmount = {
-  id: string;
+export type IngredientAmount = {
+  id: number;
+  uiKey: string;
   ingredient: Ingredient | null;
-  amount?: string;
+  amount: string | null;
 };
 
-export default IngredientAmount;
+export type NewIngredientAmount = Omit<
+  IngredientAmount,
+  "id" | "ingredient"
+> & { ingredient: Ingredient | NewIngredient | null };

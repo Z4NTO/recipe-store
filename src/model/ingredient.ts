@@ -1,6 +1,7 @@
-type Ingredient = {
-  id: string;
+export type Ingredient = {
+  id: number;
   name: string;
+  cookbookId: number;
 };
 
-export default Ingredient;
+export type NewIngredient = Omit<Ingredient, "id">;

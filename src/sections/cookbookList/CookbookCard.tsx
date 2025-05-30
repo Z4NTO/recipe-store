@@ -15,7 +15,7 @@ function CookbookCard({ cookbook }: Readonly<PropType>) {
     <Paper
       key={cookbook.id}
       onClick={() => {
-        navigate(routes.recipeList(cookbook.id));
+        navigate(routes.recipeList(cookbook.id.toString()));
       }}
       elevation={2}
       sx={{

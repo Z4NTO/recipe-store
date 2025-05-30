@@ -1,6 +1,6 @@
 import { Box, Chip, Typography } from "@mui/material";
 import DraggableStack from "../../components/DraggableStack";
-import Recipe from "../../model/recipe";
+import { Recipe } from "../../model/recipe";
 import { useNavigateToRecipeDetail } from "../../router/navigateHooks.ts";
 
 type PropType = {
@@ -22,7 +22,7 @@ function RecipePreview({ recipe }: Readonly<PropType>) {
         Math.abs(initialMousePositionX - e.clientX) <= mouseMoveTolerance &&
         Math.abs(initialMousePositionY - e.clientY) <= mouseMoveTolerance
       ) {
-        navigateToRecipeDetail(recipe.id);
+        navigateToRecipeDetail(recipe.id.toString());
       }
     };
 

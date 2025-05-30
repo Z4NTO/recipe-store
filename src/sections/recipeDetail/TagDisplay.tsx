@@ -1,16 +1,12 @@
 import { Chip, Stack } from "@mui/material";
-import Recipe from "../../model/recipe";
 import { Add } from "@mui/icons-material";
 import { useState } from "react";
 import TagAddDialog from "./TagAddDialog.tsx";
-import Tag from "../../model/tag.ts";
+import { NewTag, Tag } from "../../model/tag.ts";
+import { useRecipeDetailContext } from "../../pages/recipeDetail/recipeDetailContext.ts";
 
-type PropType = {
-  recipe: Recipe;
-  setRecipe: (recipe: Recipe) => void;
-};
-
-function TagDisplay({ recipe, setRecipe }: Readonly<PropType>) {
+function TagDisplay() {
+  const { currentRecipe, setCurrentRecipe } = useRecipeDetailContext();
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
   function openDialog() {
@@ -21,16 +17,21 @@ function TagDisplay({ recipe, setRecipe }: Readonly<PropType>) {
     setDialogIsOpen(false);
   }
 
-  function addTag(newTag: Tag) {
-    if (recipe.tags.find((existingTag) => existingTag.name === newTag.name)) {
+  function addTag(newTag: Tag | NewTag) {
+    if (
+      currentRecipe.tags.find((existingTag) => existingTag.name === newTag.name)
+    ) {
       return;
     }
-    setRecipe({ ...recipe, tags: [...recipe.tags, newTag] });
+    setCurrentRecipe({
+      ...currentRecipe,
+      tags: [...currentRecipe.tags, newTag],
+    });
   }
 
-  function deleteTag(id: string) {
-    const updatedTags = recipe.tags.filter((tag) => tag.id !== id);
-    setRecipe({ ...recipe, tags: updatedTags });
+  function deleteTag(name: string) {
+    const updatedTags = currentRecipe.tags.filter((tag) => tag.name !== name);
+    setCurrentRecipe({ ...currentRecipe, tags: updatedTags });
   }
 
   return (
@@ -42,11 +43,11 @@ function TagDisplay({ recipe, setRecipe }: Readonly<PropType>) {
         justifyContent={"flex-start"}
         sx={{ pb: 5 }}
       >
-        {recipe.tags.map((tag) => (
+        {currentRecipe.tags.map((tag) => (
           <Chip
-            key={`${tag.id} ${tag.name}`}
+            key={`${tag.name}`}
             label={tag.name}
-            onDelete={() => deleteTag(tag.id)}
+            onDelete={() => deleteTag(tag.name)}
           />
         ))}
         <Chip

@@ -1,5 +1,5 @@
 type Cookbook = {
-  id: string;
+  id: number;
   name: string;
 };
 

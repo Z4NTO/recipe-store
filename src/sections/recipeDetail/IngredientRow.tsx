@@ -1,17 +1,24 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton, Stack, TextField } from "@mui/material";
-import IngredientAmount from "../../model/ingredientAmount.ts";
+import {
+  IngredientAmount,
+  NewIngredientAmount,
+} from "../../model/ingredientAmount.ts";
 import React from "react";
-import RecipeStoreAutocomplete from "../../components/RecipeStoreAutocomplete.tsx";
-import Ingredient from "../../model/ingredient.ts";
+import RecipeStoreAutocomplete, {
+  AutocompleteOption,
+} from "../../components/RecipeStoreAutocomplete.tsx";
 import { useParams } from "react-router-dom";
 import paramNames from "../../router/paramNames.ts";
 import { useIngredientQuery } from "../../api/ingredient.ts";
+import { Ingredient } from "../../model/ingredient.ts";
 
 type PropType = {
-  ingredientAmount: IngredientAmount;
-  updateIngredientAmount: (newValue: IngredientAmount) => void;
-  deleteIngredientAmount: (id: string) => void;
+  ingredientAmount: IngredientAmount | NewIngredientAmount;
+  updateIngredientAmount: (
+    newValue: IngredientAmount | NewIngredientAmount,
+  ) => void;
+  deleteIngredientAmount: (uiKey: string) => void;
 };
 
 function IngredientRow({
@@ -23,10 +30,10 @@ function IngredientRow({
   const cookbookId = useParams()[paramNames.cookbookId];
   const { data: ingredients = [] } = useIngredientQuery(cookbookId ?? "");
 
-  function handleIngredientUpdate(ingredient: Ingredient | null) {
+  function handleIngredientUpdate(ingredient: AutocompleteOption | null) {
     updateIngredientAmount({
       ...ingredientAmount,
-      ingredient: ingredient,
+      ingredient: ingredient as Ingredient,
     });
     setIsHovered(false); // Fixes issue with hover state not resetting when selecting dropdown option
   }
@@ -50,7 +57,7 @@ function IngredientRow({
         sx={{
           visibility: isHovered ? "visible" : "hidden",
         }}
-        onClick={() => deleteIngredientAmount(ingredientAmount.id)}
+        onClick={() => deleteIngredientAmount(ingredientAmount.uiKey)}
       >
         <DeleteIcon />
       </IconButton>
@@ -83,6 +90,10 @@ function IngredientRow({
         value={ingredientAmount.ingredient}
         onValueUpdate={handleIngredientUpdate}
         options={ingredients}
+        createNewOption={(name: string) => ({
+          name,
+          cookbookId: Number(cookbookId),
+        })}
         autocompleteProps={{
           sx: {
             width: "75%",

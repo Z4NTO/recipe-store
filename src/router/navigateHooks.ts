@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import paramNames from "./paramNames.ts";
 import routes from "./routes.ts";
-import { NEW_RECIPE_ID } from "../model/recipe.ts";
 
 export function useNavigateToRecipeList() {
   const navigate = useNavigate();
@@ -22,6 +21,10 @@ export function useNavigateToRecipeDetail() {
 }
 
 export function useNavigateToCreateRecipe() {
-  const navigateToRecipeDetail = useNavigateToRecipeDetail();
-  return () => navigateToRecipeDetail(NEW_RECIPE_ID);
+  const navigate = useNavigate();
+  const cookbookId = useParams()[paramNames.cookbookId];
+  return () =>
+    navigate(
+      cookbookId ? routes.createNewRecipe(cookbookId) : routes.cookbookList,
+    );
 }

@@ -1,6 +1,6 @@
 import { Box, Divider } from "@mui/material";
 import { ReactNode } from "react";
-import { BoxProps } from "@mui/material/Box/Box";
+import { BoxProps } from "@mui/material/Box";
 
 export type ToolbarPropType = BoxProps & {
   toolbarPosition: "top" | "bottom";

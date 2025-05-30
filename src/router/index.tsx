@@ -24,6 +24,10 @@ const router = createBrowserRouter([
         element: <RecipeListPage />,
       },
       {
+        path: routes.createNewRecipe(`:${paramNames.cookbookId}`),
+        element: <RecipeDetailPage isCreateNew />,
+      },
+      {
         path: routes.recipeDetail(
           `:${paramNames.cookbookId}`,
           `:${paramNames.recipeId}`,

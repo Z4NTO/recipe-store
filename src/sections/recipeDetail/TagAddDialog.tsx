@@ -8,8 +8,10 @@ import {
   useTheme,
 } from "@mui/material";
 import { useState } from "react";
-import Tag from "../../model/tag.ts";
-import RecipeStoreAutocomplete from "../../components/RecipeStoreAutocomplete.tsx";
+import { NewTag, Tag } from "../../model/tag.ts";
+import RecipeStoreAutocomplete, {
+  AutocompleteOption,
+} from "../../components/RecipeStoreAutocomplete.tsx";
 import { useParams } from "react-router-dom";
 import paramNames from "../../router/paramNames.ts";
 import { useTagQuery } from "../../api/tag.ts";
@@ -17,11 +19,11 @@ import { useTagQuery } from "../../api/tag.ts";
 type PropType = {
   isOpen: boolean;
   closeDialog: () => void;
-  addTag: (newTag: Tag) => void;
+  addTag: (newTag: Tag | NewTag) => void;
 };
 
 function TagAddDialog({ isOpen, closeDialog, addTag }: Readonly<PropType>) {
-  const [tag, setTag] = useState<Tag | null>(null);
+  const [tag, setTag] = useState<Tag | NewTag | null>(null);
 
   const cookbookId = useParams()[paramNames.cookbookId];
   const { data: tags = [] } = useTagQuery(cookbookId ?? "");
@@ -43,8 +45,14 @@ function TagAddDialog({ isOpen, closeDialog, addTag }: Readonly<PropType>) {
       <DialogContent>
         <RecipeStoreAutocomplete
           value={tag}
-          onValueUpdate={setTag}
+          onValueUpdate={
+            setTag as (newValue: AutocompleteOption | null) => void
+          }
           options={tags}
+          createNewOption={(name) => ({
+            name,
+            cookbookId: Number(cookbookId),
+          })}
           textFieldProps={{ placeholder: "Tag auswählen" }}
         />
       </DialogContent>

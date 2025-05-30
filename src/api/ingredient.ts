@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import Ingredient from "../model/ingredient.ts";
+import { Ingredient } from "../model/ingredient.ts";
 
 export function useIngredientQuery(cookbookId: string) {
   return useQuery<Ingredient[], Error>({

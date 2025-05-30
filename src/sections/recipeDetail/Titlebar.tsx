@@ -1,20 +1,16 @@
 import { Stack, TextField, useMediaQuery, useTheme } from "@mui/material";
-import Recipe from "../../model/recipe";
 import TagDisplay from "./TagDisplay.tsx";
 import { useState } from "react";
 import DiscardChangesDialog from "./DiscardChangesDialog.tsx";
 import { useNavigateToRecipeList } from "../../router/navigateHooks.ts";
 import NavigateBackButton from "../../components/NavigateBackButton.tsx";
+import { useRecipeDetailContext } from "../../pages/recipeDetail/recipeDetailContext.ts";
 
-type PropType = {
-  recipe: Recipe;
-  setRecipe: (recipe: Recipe) => void;
-  isDirty: boolean;
-};
-
-function Titlebar({ recipe, setRecipe, isDirty }: Readonly<PropType>) {
+function Titlebar() {
   const [discardChangesDialogIsOpen, setDiscardChangesDialogIsOpen] =
     useState(false);
+
+  const { currentRecipe, setCurrentRecipe, isDirty } = useRecipeDetailContext();
 
   const navigateToRecipeList = useNavigateToRecipeList();
 
@@ -36,9 +32,9 @@ function Titlebar({ recipe, setRecipe, isDirty }: Readonly<PropType>) {
         <TextField
           variant="standard"
           placeholder={"Titel einfügen..."}
-          value={recipe.title}
+          value={currentRecipe.title}
           onChange={(event) =>
-            setRecipe({ ...recipe, title: event.target.value })
+            setCurrentRecipe({ ...currentRecipe, title: event.target.value })
           }
           fullWidth
           slotProps={{
@@ -52,7 +48,7 @@ function Titlebar({ recipe, setRecipe, isDirty }: Readonly<PropType>) {
           }}
         />
       </Stack>
-      <TagDisplay recipe={recipe} setRecipe={setRecipe} />
+      <TagDisplay />
       <DiscardChangesDialog
         isOpen={discardChangesDialogIsOpen}
         handleSubmit={navigateToRecipeList}

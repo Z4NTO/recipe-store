@@ -2,7 +2,7 @@ import { Box, CircularProgress, Divider, Stack } from "@mui/material";
 import RecipePreview from "../../sections/recipeList/RecipePreview";
 import SearchToolbar from "../../sections/recipeList/SearchToolbar.tsx";
 import { useState } from "react";
-import Recipe from "../../model/recipe.ts";
+import { Recipe } from "../../model/recipe.ts";
 import CreateNewButton from "../../sections/recipeList/CreateNewButton.tsx";
 import CreateNewRecipeHint from "../../sections/recipeList/CreateNewRecipeHint.tsx";
 import { useNavigateToCreateRecipe } from "../../router/navigateHooks.ts";

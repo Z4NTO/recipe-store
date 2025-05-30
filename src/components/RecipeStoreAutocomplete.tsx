@@ -10,13 +10,13 @@ type PropType = {
   value: AutocompleteOption | null;
   onValueUpdate: (newValue: AutocompleteOption | null) => void;
   options: AutocompleteOption[];
+  createNewOption: (name: string) => AutocompleteOption;
   autocompleteProps?: object;
   textFieldProps?: object;
   inputProps?: object;
 };
 
-type AutocompleteOption = {
-  id: string; // TODO: change to number
+export type AutocompleteOption = {
   name: string;
   label?: string;
 };
@@ -25,6 +25,7 @@ function RecipeStoreAutocomplete({
   value,
   onValueUpdate,
   options,
+  createNewOption,
   autocompleteProps,
   textFieldProps,
   inputProps,
@@ -36,10 +37,7 @@ function RecipeStoreAutocomplete({
     if (newValue === null) {
       onValueUpdate(null);
     } else {
-      onValueUpdate({
-        id: newValue.id,
-        name: newValue.name,
-      });
+      onValueUpdate(newValue);
     }
   }
 
@@ -59,8 +57,7 @@ function RecipeStoreAutocomplete({
       trimmedSearchValue !== "" && filteredOptions.length === 0;
     if (suggestNewValueCreation) {
       filteredOptions.push({
-        id: "new",
-        name: trimmedSearchValue,
+        ...createNewOption(trimmedSearchValue),
         label: `"${trimmedSearchValue}" erstellen`,
       });
     }
@@ -80,7 +77,7 @@ function RecipeStoreAutocomplete({
       noOptionsText={"Keine Optionen verfügbar"}
       renderOption={(props, option) => {
         return (
-          <li {...props} key={`${option.id} ${option.name}`}>
+          <li {...props} key={`${option.name}`}>
             {option.label || option.name}
           </li>
         );

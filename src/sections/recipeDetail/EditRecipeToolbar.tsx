@@ -1,30 +1,26 @@
 import { Button, Stack } from "@mui/material";
 import Toolbar from "../../components/Toolbar.tsx";
-import Recipe, { NEW_RECIPE_ID } from "../../model/recipe.ts";
 import { useNavigateToRecipeList } from "../../router/navigateHooks.ts";
+import { useRecipeDetailContext } from "../../pages/recipeDetail/recipeDetailContext.ts";
 
 type PropType = {
   spaceFiller?: boolean;
-  initialRecipe?: Recipe;
-  setRecipe?: (recipe: Recipe) => void;
 };
 
-function EditRecipeToolbar({
-  initialRecipe,
-  setRecipe,
-  spaceFiller,
-}: Readonly<PropType>) {
+function EditRecipeToolbar({ spaceFiller }: Readonly<PropType>) {
+  const { initialRecipe, setCurrentRecipe, isCreateNew } =
+    useRecipeDetailContext();
   const navigateToRecipeList = useNavigateToRecipeList();
 
   function handleCancel() {
-    if (!initialRecipe || !setRecipe) {
+    if (!initialRecipe) {
       return;
     }
 
-    if (initialRecipe.id === NEW_RECIPE_ID) {
+    if (isCreateNew) {
       navigateToRecipeList();
     } else {
-      setRecipe(initialRecipe);
+      setCurrentRecipe(initialRecipe);
     }
   }
 

@@ -11,57 +11,71 @@ import EditRecipeToolbar from "../../sections/recipeDetail/EditRecipeToolbar.tsx
 import { objectDeepEquals } from "../../util/objects.ts";
 import paramNames from "../../router/paramNames.ts";
 import { useRecipeQuery } from "../../api/recipe.ts";
-import Recipe, { NEW_RECIPE_ID } from "../../model/recipe.ts";
+import { NewRecipe, Recipe } from "../../model/recipe.ts";
+import { RecipeDetailContext } from "./recipeDetailContext.ts";
 
-function RecipeDetailPage() {
+type PropType = {
+  isCreateNew?: boolean;
+};
+
+function RecipeDetailPage({ isCreateNew = false }: Readonly<PropType>) {
   const cookbookId = useParams()[paramNames.cookbookId];
   const { data: recipes = [] } = useRecipeQuery(cookbookId ?? "");
 
   const recipeId = useParams()[paramNames.recipeId];
 
   const initialRecipe = useMemo(() => {
-    return recipeId === NEW_RECIPE_ID
-      ? { id: NEW_RECIPE_ID, title: "", tags: [], ingredients: [], notes: "" } // TODO: maybe remove id if backend does not require it
+    return isCreateNew
+      ? {
+          cookbookId: Number(cookbookId),
+          title: "",
+          tags: [],
+          ingredients: [],
+          notes: "",
+        }
       : recipes.find((recipe) => recipe.id.toString() === recipeId);
-  }, [recipeId, recipes]);
+  }, [isCreateNew, recipeId, recipes]);
 
-  const [recipe, setRecipe] = useState<Recipe>();
+  const [currentRecipe, setCurrentRecipe] = useState<Recipe | NewRecipe>();
 
   useEffect(() => {
     if (initialRecipe) {
-      setRecipe(initialRecipe);
+      setCurrentRecipe(initialRecipe);
     }
   }, [initialRecipe]);
 
-  const isDirty = !objectDeepEquals(initialRecipe, recipe);
+  const isDirty = !objectDeepEquals(initialRecipe, currentRecipe);
 
-  if (!initialRecipe || !recipe) {
+  if (!initialRecipe || !currentRecipe) {
     return;
   }
 
   return (
-    <>
+    <RecipeDetailContext
+      value={{
+        currentRecipe,
+        setCurrentRecipe,
+        initialRecipe,
+        isCreateNew,
+        isDirty,
+      }}
+    >
       <Box sx={{ p: 3, height: "100%" }}>
-        <Titlebar recipe={recipe} setRecipe={setRecipe} isDirty={isDirty} />
+        <Titlebar />
         <SectionDivider
           title="Zutaten"
           icon={<EggIcon fontSize="large" color="primary" />}
         />
-        <IngredientList recipe={recipe} setRecipe={setRecipe} />
+        <IngredientList />
         <SectionDivider
           title="Notizen"
           icon={<DescriptionIcon fontSize="large" color="primary" />}
         />
-        <Notes recipe={recipe} setRecipe={setRecipe} />
+        <Notes />
       </Box>
       {isDirty && <EditRecipeToolbar spaceFiller />}
-      {isDirty && (
-        <EditRecipeToolbar
-          initialRecipe={initialRecipe}
-          setRecipe={setRecipe}
-        />
-      )}
-    </>
+      {isDirty && <EditRecipeToolbar />}
+    </RecipeDetailContext>
   );
 }
 

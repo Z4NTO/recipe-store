@@ -1,14 +1,16 @@
-import IngredientAmount from "./ingredientAmount.ts";
-import Tag from "./tag.ts";
+import { IngredientAmount, NewIngredientAmount } from "./ingredientAmount.ts";
+import { NewTag, Tag } from "./tag.ts";
 
-export const NEW_RECIPE_ID = "new";
-
-type Recipe = {
-  id: string;
+export type Recipe = {
+  id: number;
   title: string;
+  cookbookId: number;
   tags: Tag[];
   ingredients: IngredientAmount[];
-  notes: string;
+  notes: string | null;
 };
 
-export default Recipe;
+export type NewRecipe = Omit<Recipe, "id" | "tags" | "ingredients"> & {
+  tags: (Tag | NewTag)[];
+  ingredients: NewIngredientAmount[];
+};

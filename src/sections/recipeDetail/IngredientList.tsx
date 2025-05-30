@@ -1,50 +1,52 @@
 import { Box, Button, Stack } from "@mui/material";
-import Recipe from "../../model/recipe";
-import IngredientAmount from "../../model/ingredientAmount.ts";
+import {
+  IngredientAmount,
+  NewIngredientAmount,
+} from "../../model/ingredientAmount.ts";
 import IngredientRow from "./IngredientRow.tsx";
 import { Add } from "@mui/icons-material";
 import { v4 as uuidv4 } from "uuid";
+import { useRecipeDetailContext } from "../../pages/recipeDetail/recipeDetailContext.ts";
 
-type PropType = {
-  recipe: Recipe;
-  setRecipe: (recipe: Recipe) => void;
-};
+function IngredientList() {
+  const { currentRecipe, setCurrentRecipe } = useRecipeDetailContext();
 
-function IngredientList({ recipe, setRecipe }: Readonly<PropType>) {
   function addNewIngredientAmount() {
-    const newIngredient: IngredientAmount = {
-      id: uuidv4(),
+    const newIngredient = {
+      uiKey: uuidv4(),
       ingredient: null,
-      amount: "",
+      amount: null,
     };
-    setRecipe({
-      ...recipe,
-      ingredients: [...recipe.ingredients, newIngredient],
+    setCurrentRecipe({
+      ...currentRecipe,
+      ingredients: [...currentRecipe.ingredients, newIngredient],
     });
   }
 
-  function updateIngredientAmount(newValue: IngredientAmount) {
-    const updatedIngredients = [...recipe.ingredients];
+  function updateIngredientAmount(
+    newValue: IngredientAmount | NewIngredientAmount,
+  ) {
+    const updatedIngredients = [...currentRecipe.ingredients];
     const updateIndex = updatedIngredients.findIndex(
-      (ingredient) => ingredient.id === newValue.id,
+      (ingredient) => ingredient.uiKey === newValue.uiKey,
     );
     updatedIngredients[updateIndex] = newValue;
-    setRecipe({ ...recipe, ingredients: updatedIngredients });
+    setCurrentRecipe({ ...currentRecipe, ingredients: updatedIngredients });
   }
 
-  function deleteIngredientAmount(idToDelete: string) {
-    const updatedIngredients = recipe.ingredients.filter(
-      (ingredient) => ingredient.id !== idToDelete,
+  function deleteIngredientAmount(uiKey: string) {
+    const updatedIngredients = currentRecipe.ingredients.filter(
+      (ingredient) => ingredient.uiKey !== uiKey,
     );
-    setRecipe({ ...recipe, ingredients: updatedIngredients });
+    setCurrentRecipe({ ...currentRecipe, ingredients: updatedIngredients });
   }
 
   return (
     <Box mt={5} mb={7} ml={"5%"} mr={"10%"}>
       <Stack spacing={-1}>
-        {recipe.ingredients.map((ingredientAmount) => (
+        {currentRecipe.ingredients.map((ingredientAmount) => (
           <IngredientRow
-            key={ingredientAmount.id}
+            key={ingredientAmount.uiKey}
             ingredientAmount={ingredientAmount}
             updateIngredientAmount={updateIngredientAmount}
             deleteIngredientAmount={deleteIngredientAmount}
