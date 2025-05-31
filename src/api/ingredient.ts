@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { Ingredient } from "../model/ingredient.ts";
 
+export const INGREDIENT_QUERY_KEY = "ingredient";
+
 export function useIngredientQuery(cookbookId: string) {
   return useQuery<Ingredient[], Error>({
-    queryKey: ["ingredients", cookbookId],
+    queryKey: [INGREDIENT_QUERY_KEY, { cookbookId }],
     queryFn: async () => {
       const baseUrl = import.meta.env.VITE_API_BASE_URL;
       const url = new URL("/api/ingredient", baseUrl);

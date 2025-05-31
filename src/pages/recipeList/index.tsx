@@ -15,7 +15,7 @@ function RecipeListPage() {
   const navigateToCreatePage = useNavigateToCreateRecipe();
 
   const cookbookId = useParams()[paramNames.cookbookId];
-  const { data: recipes = [], isLoading } = useRecipeQuery(cookbookId ?? "");
+  const { data: recipes = [], isPending } = useRecipeQuery(cookbookId ?? "");
 
   function recipeMatchesSearchTerm(recipe: Recipe) {
     const searchTextLowerCase = searchText.toLowerCase();
@@ -39,7 +39,7 @@ function RecipeListPage() {
         setTextFieldValue={setSearchText}
       />
       <SearchToolbar spaceFiller />
-      {isLoading ? (
+      {isPending ? (
         <Stack alignItems={"center"} mt={20}>
           <CircularProgress />
         </Stack>

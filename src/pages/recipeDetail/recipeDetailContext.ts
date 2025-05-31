@@ -4,6 +4,7 @@ import { NewRecipe, Recipe } from "../../model/recipe.ts";
 type RecipeDetailContextType = null | {
   currentRecipe: Recipe | NewRecipe;
   setCurrentRecipe: (recipe: Recipe | NewRecipe) => void;
+  saveRecipe: (recipe: NewRecipe) => Promise<Recipe>;
   initialRecipe: Recipe | NewRecipe;
   isCreateNew: boolean;
   isDirty: boolean;

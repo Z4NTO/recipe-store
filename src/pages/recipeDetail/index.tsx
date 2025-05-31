@@ -1,6 +1,6 @@
 import DescriptionIcon from "@mui/icons-material/Description";
 import EggIcon from "@mui/icons-material/Egg";
-import { Box } from "@mui/material";
+import { Box, CircularProgress, Stack } from "@mui/material";
 import { useParams } from "react-router-dom";
 import SectionDivider from "../../components/SectionDivider";
 import Titlebar from "../../sections/recipeDetail/Titlebar";
@@ -10,7 +10,7 @@ import Notes from "../../sections/recipeDetail/Notes";
 import EditRecipeToolbar from "../../sections/recipeDetail/EditRecipeToolbar.tsx";
 import { objectDeepEquals } from "../../util/objects.ts";
 import paramNames from "../../router/paramNames.ts";
-import { useRecipeQuery } from "../../api/recipe.ts";
+import { useRecipeQuery, useSaveRecipeMutation } from "../../api/recipe.ts";
 import { NewRecipe, Recipe } from "../../model/recipe.ts";
 import { RecipeDetailContext } from "./recipeDetailContext.ts";
 
@@ -20,7 +20,10 @@ type PropType = {
 
 function RecipeDetailPage({ isCreateNew = false }: Readonly<PropType>) {
   const cookbookId = useParams()[paramNames.cookbookId];
-  const { data: recipes = [] } = useRecipeQuery(cookbookId ?? "");
+  const { data: recipes = [], isPending: recipeQueryIsPending } =
+    useRecipeQuery(cookbookId ?? "");
+  const { mutateAsync: saveRecipe, isPending: saveRecipeMutationIsPending } =
+    useSaveRecipeMutation();
 
   const recipeId = useParams()[paramNames.recipeId];
 
@@ -34,7 +37,7 @@ function RecipeDetailPage({ isCreateNew = false }: Readonly<PropType>) {
           notes: "",
         }
       : recipes.find((recipe) => recipe.id.toString() === recipeId);
-  }, [isCreateNew, recipeId, recipes]);
+  }, [isCreateNew, cookbookId, recipeId, recipes]);
 
   const [currentRecipe, setCurrentRecipe] = useState<Recipe | NewRecipe>();
 
@@ -55,26 +58,35 @@ function RecipeDetailPage({ isCreateNew = false }: Readonly<PropType>) {
       value={{
         currentRecipe,
         setCurrentRecipe,
+        saveRecipe,
         initialRecipe,
         isCreateNew,
         isDirty,
       }}
     >
-      <Box sx={{ p: 3, height: "100%" }}>
-        <Titlebar />
-        <SectionDivider
-          title="Zutaten"
-          icon={<EggIcon fontSize="large" color="primary" />}
-        />
-        <IngredientList />
-        <SectionDivider
-          title="Notizen"
-          icon={<DescriptionIcon fontSize="large" color="primary" />}
-        />
-        <Notes />
-      </Box>
-      {isDirty && <EditRecipeToolbar spaceFiller />}
-      {isDirty && <EditRecipeToolbar />}
+      {recipeQueryIsPending || saveRecipeMutationIsPending ? (
+        <Stack alignItems={"center"} mt={20}>
+          <CircularProgress />
+        </Stack>
+      ) : (
+        <>
+          <Box sx={{ p: 3, height: "100%" }}>
+            <Titlebar />
+            <SectionDivider
+              title="Zutaten"
+              icon={<EggIcon fontSize="large" color="primary" />}
+            />
+            <IngredientList />
+            <SectionDivider
+              title="Notizen"
+              icon={<DescriptionIcon fontSize="large" color="primary" />}
+            />
+            <Notes />
+          </Box>
+          {isDirty && <EditRecipeToolbar spaceFiller />}
+          {isDirty && <EditRecipeToolbar />}
+        </>
+      )}
     </RecipeDetailContext>
   );
 }
